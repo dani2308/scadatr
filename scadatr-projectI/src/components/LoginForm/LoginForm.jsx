@@ -1,12 +1,13 @@
 import React from "react";
 import './LoginForm.css';
 import { FaUser, FaLock} from "react-icons/fa";
-
+import scadatr_logo from '../../assets/scadatr_logo.png';
 
 const LoginForm = () => {
   return (
     <div className='wrapper'>
         <form action="">
+            <img src={scadatr_logo} alt="Logo" className="logo" /> 
             <h1>Login</h1>
             <div className="input-box">
                 <input type="text" placeholder="Utilizador" required />
