@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './LoginForm.css';
 import { FaUser, FaLock} from "react-icons/fa";
 import scadatr_logo from '../../assets/scadatr_logo.png';
 
 const LoginForm = () => {
+    useEffect(() => {
+        document.body.classList.add('login-form-page');
+
+    return () => {
+        document.body.classList.remove('login-form-page');
+    };
+    }, []);
+
+
   return (
     <div className='wrapper'>
         <form action="">

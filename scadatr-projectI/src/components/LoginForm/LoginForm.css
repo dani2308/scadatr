@@ -1,4 +1,8 @@
 
+body.login-form-page {
+    background: linear-gradient(to left, var(--color-quinary), var(--color-secondary));
+}
+
 .wrapper {
     width: 500px;
     background: var(--color-dark);
