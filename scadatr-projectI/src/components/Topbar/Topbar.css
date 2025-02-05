@@ -1,14 +1,15 @@
 .Topbar {
+    width: calc(100% - 450px);
+    height: 90px;
     position: fixed;
     top: 0;
     left: 450px;
     right: 0;
-    height: 90px;
     background-color: var(--color-secondary);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 50px 0px 0px;
+    padding: 0px 50px;
     color: white;
     box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
 }
@@ -42,4 +43,8 @@
     font-size: 20px; 
     color: white; 
     font-weight: bold;
+}
+
+.content-area {
+  padding-top: 90px; /* Igual à altura da Topbar */
 }
