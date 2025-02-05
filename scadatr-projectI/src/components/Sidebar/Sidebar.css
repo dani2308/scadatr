@@ -9,6 +9,20 @@
     font-size: 30px;
 }
 
+.Logo {
+  width: 70%;
+  padding: 20px 0px 0px 0px;
+  margin-bottom: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.Logo .logo {
+  width: 70%;
+  height: auto;
+}
+
 .SidebarList{
   height: auto;
   width: 100%;

@@ -73,12 +73,16 @@ body.login-form-page {
 }
 
 .wrapper .remember-me{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     accent-color: #fff;    
-    font-weight: 500;
+    font-weight: 500;    
 }
 
 
 .forgot-password {
+    text-align: center;
     margin-top: 25px;
 }
 

@@ -1,0 +1,33 @@
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px; /* Adjust this value to match the width of your sidebar */
+  margin-top: 90px; /* Adjust this value to match the height of your topbar */
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 250px; /* Adjust this value to match the width of your sidebar */
+  right: 0;
+  height: 60px;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000; /* Ensure the topbar is above other elements */
+}
+
+.content-area {
+  padding: 20px; /* Adjust padding as needed */
+  flex: 1;
+  background-color: #f0f0f0; /* Optional: Add a background color for the content area */
+}

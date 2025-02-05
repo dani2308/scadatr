@@ -1,10 +1,14 @@
 import React from "react";
 import "./Sidebar.css";
 import { SidebarData } from "./SidebarData"; 
+import scadatr_logo from "../../assets/scadatr_logo.png";
 
 const Sidebar = () => {
   return (
     <div className="Sidebar">
+      <div className="Logo">
+        <img src={scadatr_logo} alt="Logo" className="logo" />
+      </div>
       <ul className = "SidebarList">
       {SidebarData.map((val, key) => {
       return(
