@@ -1,23 +1,17 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginForm from './components/LoginForm/LoginForm';
-import MainLayout from './components/Layout/MainLayout';
-import Dashboard from './pages/Dashboard';
-import NotFound from './components/NotFound/NotFound';
+import React from "react";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Content from "./components/Content/Content";
+import "./App.css";
+
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<LoginForm setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/dashboard" element={isAuthenticated ? <MainLayout><Dashboard /></MainLayout> : <LoginForm setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+    <div className="dashboard">
+      <Sidebar />
+      <div className="dashboard-content">
+        <Content />
       </div>
-    </Router>
+    </div>
   );
 }
 

@@ -14,17 +14,13 @@
   margin:0;
   padding: 0;
   box-sizing: border-box;
-  
-}
-
-body {  
   font-family: "Roboto", serif, "Roboto Slab", serif, "Roboto Condensed", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #fff;
+}
+
+body {  
+  background-color: var(--color-secondary);
+  padding: 20px;
 }
 

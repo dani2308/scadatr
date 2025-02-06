@@ -1,10 +1,13 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-  
-.App {
+.dashboard{
     display: flex;
-    height: 100vh;
+    gap: 20px;
+}
+
+.dashboard-content {
+    background: #fff;
+    flex: 1;
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    gap: 1.5rem;
 }
