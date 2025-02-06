@@ -1,18 +1,19 @@
 .Sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 450px;
-    height: 100vh;
-    background: var(--color-secondary);
-    padding: 0px;
-    font-size: 30px;
-    z-index: 1001;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 100vh;
+  background: var(--color-secondary);
+  padding: 0;
+  font-size: 30px;
+  z-index: 1001;
+  transition: width 0.3s ease;
 }
 
 .Logo {
   width: 70%;
-  padding: 20px 0px 0px 0px;
+  padding: 20px 0 0 0;
   margin-bottom: 5%;
   display: flex;
   justify-content: center;
@@ -24,22 +25,23 @@
   height: auto;
 }
 
-.SidebarList{
+.SidebarList {
   height: auto;
   width: 100%;
-  padding: 0px;  
+  padding: 0;    
 }
 
 .SidebarList .row {
   width: 100%;
   height: 100px;
   list-style-type: none;
-  margin: 0%;
+  margin: 0;
   display: flex;
   flex-direction: row;
   color: white;
   justify-content: center;
   align-items: center;
+  font-size: 22px;
 }
 
 .SidebarList .row:hover {
@@ -60,4 +62,41 @@
 
 .row #title {
   flex: 70%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .Sidebar {
+      width: 250px;
+  }
+
+  .SidebarList .row {
+      height: 80px;
+  }
+
+  .row #icon {
+      flex: 20%;
+  }
+
+  .row #title {
+      flex: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .Sidebar {
+      width: 200px;
+  }
+
+  .SidebarList .row {
+      height: 60px;
+  }
+
+  .row #icon {
+      flex: 25%;
+  }
+
+  .row #title {
+      flex: 75%;
+  }
 }

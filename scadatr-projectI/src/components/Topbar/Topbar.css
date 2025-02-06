@@ -1,50 +1,74 @@
 .Topbar {
-    width: calc(100% - 450px);
-    height: 90px;
-    position: fixed;
-    top: 0;
-    left: 450px;
-    right: 0;
-    background-color: var(--color-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 50px;
-    color: white;
-    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 300px); /* Adjusted to match the Sidebar width */
+  height: 90px;
+  position: fixed;
+  top: 0;
+  left: 300px;
+  right: 0;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 2%;
+  color: white;
+  box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease, width 0.3s ease;
 }
 
 .Search-bar {
-    width: 1000px;
-    padding: 16px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);  
 }
 
 .Topbar-icons {
-    display: flex;
-    align-items: center;
-    gap: 70px;
+  display: flex;
+  align-items: center;
+  gap: 30%;
 }
 
 .Notification-icon, .Profile-icon {
-    font-size: 40px;
-    cursor: pointer;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .Profile {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .User-name {
-    margin-right: 10px; 
-    font-size: 20px; 
-    color: white; 
-    font-weight: bold;
+  margin-right: 10%; 
+  font-size: 20px; 
+  color: white; 
+  font-weight: bold;
 }
 
-.content-area {
-  padding-top: 90px; /* Igual à altura da Topbar */
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .Topbar {
+      width: calc(100% - 250px); /* Adjusted to match the Sidebar width */
+      left: 250px; /* Adjusted to match the Sidebar width */
+      padding: 0px 20px;
+  }
+
+  .Search-bar {
+      max-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Topbar {
+      width: calc(100% - 200px); /* Adjusted to match the Sidebar width */
+      left: 200px; /* Adjusted to match the Sidebar width */
+      padding: 0px 10px;
+  }
+
+  .Search-bar {
+      max-width: 300px;
+  }
 }
