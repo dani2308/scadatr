@@ -1,5 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+html,
+body,
+#root,
+.app,
+.content {
+  height: 100%;
+  width: 100%;
+}
+
+.app {
+  display: flex;
+  position: relative;
+  font-family: "Roboto", serif, "Roboto Slab", serif, "Roboto Condensed", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track{
+  background: #e0e0e0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 :root {
   --color-primary: #2290FF;
   --color-secondary: #42A1FF;
@@ -9,18 +44,4 @@
   --color-dark: #2E2E2E;
 }
 
-
-* {
-  margin:0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto", serif, "Roboto Slab", serif, "Roboto Condensed", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {  
-  background-color: var(--color-secondary);
-  padding: 20px;
-}
 
