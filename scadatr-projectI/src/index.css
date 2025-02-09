@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
 html,
 body,
@@ -7,12 +7,12 @@ body,
 .content {
   height: 100%;
   width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .app {
   display: flex;
   position: relative;
-  font-family: "Roboto", serif, "Roboto Slab", serif, "Roboto Condensed", sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -20,7 +20,7 @@ body,
 }
 
 /* Track */
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background: #e0e0e0;
 }
 
@@ -33,15 +33,3 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
-
-:root {
-  --color-primary: #2290FF;
-  --color-secondary: #42A1FF;
-  --color-tertiary: #66B4FF;
-  --color-quaternary: #8AC5FF;
-  --color-quinary: #ADD7FF;
-  --color-dark: #2E2E2E;
-}
-
-
