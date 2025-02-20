@@ -20,15 +20,15 @@ export const tokens = (mode) => ({
                 900: "#141414"
             },
             primary: {
-                100: "#d0d1d5",
-                200: "#a1a4ab",
-                300: "#727681",
-                400: "#434957",
-                500: "#141b2d",
-                600: "#101624",
-                700: "#0c101b",
-                800: "#080b12",
-                900: "#040509"
+                100: "#ADD7FF",
+                200: "#8AC5FF",
+                300: "#66B4FF",
+                400: "#42A1FF",
+                500: "#2290FF",
+                600: "#1B72CC",
+                700: "#145599",
+                800: "#0E3766",
+                900: "#071A33"
             },
             greenAccent: {
                 100: "#dbf5ee",
@@ -61,7 +61,7 @@ export const tokens = (mode) => ({
                 600: "#5266c8",
                 700: "#3e4d96",
                 800: "#293364",
-                900: "#151a32"
+                900: "#151a32",
             },
         }
       : {
@@ -77,15 +77,15 @@ export const tokens = (mode) => ({
             900: "#e0e0e0",
         },
         primary: {
-            100: "#040509",
-            200: "#080b12",
-            300: "#0c101b",
-            400: "#f2f0f0",
-            500: "#141b2d",
-            600: "#434957",
-            700: "#727681",
-            800: "#a1a4ab",
-            900: "#d0d1d5",
+            100: "#ADD7FF",
+            200: "#8AC5FF",
+            300: "#66B4FF",
+            400: "#42A1FF",
+            500: "#2290FF",
+            600: "#1B72CC",
+            700: "#145599",
+            800: "#0E3766",
+            900: "#071A33",
         },
         greenAccent: {
             100: "#0f2922",
@@ -170,11 +170,11 @@ export const themeSettings = (mode) => {
             fontSize: 12,
             h1: {
                 fontFamily: ["Roboto", "sans-serif"].join(","),
-                fontSize: 40,
+                fontSize: 40,                
             },
             h2: {
                 fontFamily: ["Roboto", "sans-serif"].join(","),
-                fontSize: 32,
+                fontSize: 32,                
             },
             h3: {
                 fontFamily: ["Roboto", "sans-serif"].join(","),
@@ -203,7 +203,7 @@ export const ColorModeContext = createContext({
 });
 
 export const useMode = () => {
-    const [mode, setMode] = useState('dark');
+    const [mode, setMode] = useState('light');
 
     const colorMode = useMemo(
         () => ({
