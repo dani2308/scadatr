@@ -52,10 +52,10 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#fcfcfc !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#fcfcfc !important",
         },
       }}
     >
@@ -107,7 +107,7 @@ const Sidebar = () => {
                 >
                   S_Rogerio98
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography variant="h5" color={colors.grey[100]}>
                   Administrador
                 </Typography>
               </Box>
@@ -163,7 +163,7 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.grey[100]}
               sx={{ m: "25px 0 5px 20px" }}
             >
               Gráficos
