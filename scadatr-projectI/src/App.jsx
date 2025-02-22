@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-import Team from "./scenes/team";
+import Team from "./scenes/alertas";
 import Contacts from "./scenes/contacts";
 import Invoices from "./scenes/invoices";
 import Form from "./scenes/form";

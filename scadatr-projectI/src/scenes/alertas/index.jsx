@@ -11,30 +11,34 @@ const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: "Título" },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Gravidade",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "age",
-      headerName: "Age",
+      headerName: "Data/Hora",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
       field: "phone",
-      headerName: "Phone Number",
+      headerName: "Descrição",
       flex: 1,
     },
     {
       field: "email",
-      headerName: "Email",
+      headerName: "Estado",
       flex: 1,
     },
+
+    {
+      /*
+    
     {
       field: "accessLevel",
       headerName: "Access Level",
@@ -66,11 +70,13 @@ const Team = () => {
         );
       },
     },
+    */
+    },
   ];
 
   return (
     <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
+      <Header title="Alertas" />
       <Box
         m="40px 0 0 0"
         height="75vh"
