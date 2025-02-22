@@ -11,68 +11,14 @@ const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "Título" },
-    {
-      field: "name",
-      headerName: "Gravidade",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "age",
-      headerName: "Data/Hora",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Descrição",
-      flex: 1,
-    },
-    {
-      field: "email",
-      headerName: "Estado",
-      flex: 1,
-    },
-
-    {
-      /*
-    
-    {
-      field: "accessLevel",
-      headerName: "Access Level",
-      flex: 1,
-      renderCell: ({ row: { access } }) => {
-        return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.primary[600]
-                : access === "manager"
-                ? colors.primary[700]
-                : colors.primary[700]
-            }
-            borderRadius="4px"
-          >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
-          </Box>
-        );
-      },
-    },
-    */
-    },
+    { field: "title", headerName: "Título", flex: 0.7, minWidth: 120 },
+    { field: "severity", headerName: "Gravidade", flex: 0.7, minWidth: 120 },
+    { field: "dateHour", headerName: "Data/Hora", flex: 0.9, minWidth: 150 },
+    { field: "description", headerName: "Descrição", flex: 1.5, minWidth: 200 },
+    { field: "state", headerName: "Estado", flex: 0.6, minWidth: 100 },
   ];
+
+  console.log(mockDataTeam);
 
   return (
     <Box m="20px">
@@ -106,7 +52,19 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid
+          checkboxSelection
+          rows={mockDataTeam}
+          columns={columns}
+          rowCount={mockDataTeam.length}
+          paginationMode="server"
+          autoPageSize
+          disableColumnResize
+          sx={{
+            width: "100%", // Garante que a tabela não se expande além do contêiner
+            overflowX: "auto", // Caso haja necessidade de rolagem, permite apenas quando necessário
+          }}
+        />
       </Box>
     </Box>
   );
