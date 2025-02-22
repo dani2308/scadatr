@@ -2,6 +2,8 @@ import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import ReportProblemRoundedIcon from "@mui/icons-material/ReportProblemRounded";
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -45,7 +47,8 @@ const Dashboard = () => {
         gridAutoRows="140px"
         gap="20px"
       >
-        {/* ROW 1 */}
+        {/* Top Cards */}
+        {/*
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -122,10 +125,10 @@ const Dashboard = () => {
             }
           />
         </Box>
-
-        {/* ROW 2 */}
+        /*}
+        {/* 1st Chart Dashboard */}
         <Box
-          gridColumn="span 8"
+          gridColumn="span 12"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -138,19 +141,19 @@ const Dashboard = () => {
           >
             <Box>
               <Typography
-                variant="h5"
-                fontWeight="600"
+                variant="h3"
+                fontWeight="bold"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Número de Acessos
               </Typography>
-              <Typography
+              {/* <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.grey[100]}
               >
                 $59,342.32
-              </Typography>
+              </Typography> */}
             </Box>
             <Box>
               <IconButton>
@@ -164,6 +167,7 @@ const Dashboard = () => {
             <LineChart isDashboard={true} />
           </Box>
         </Box>
+        {/* Mini-List 
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -214,8 +218,201 @@ const Dashboard = () => {
             </Box>
           ))}
         </Box>
+        */}
+        {/* Row with SysState, Alerts, ActiveUsrs*/}
+        {/* SysState */}
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          overflow="auto"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary[500]}`}
+            colors={colors.grey[100]}
+            p="15px"
+          >
+            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+              Estado do Sistema
+            </Typography>
+          </Box>
 
-        {/* ROW 3 */}
+          {/* SysState Values */}
+          {[
+            { name: "Base de Dados", status: "Online" },
+            { name: "Servidor", status: "Operacional" },
+            { name: "Sistema", status: "Operacional" },
+          ].map((item, index) => (
+            <Box
+              key={index}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${colors.primary[500]}`}
+              p="15px"
+            >
+              <Box>
+                <Typography
+                  color={colors.grey[100]}
+                  variant="h5"
+                  fontWeight="600"
+                >
+                  {item.name}:
+                </Typography>
+              </Box>
+              <Box color={colors.grey[100]}>{item.status}</Box>
+            </Box>
+          ))}
+        </Box>
+
+        {/* Alerts */}
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          overflow="auto"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary[500]}`}
+            colors={colors.grey[100]}
+            p="15px"
+          >
+            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+              Estado do Sistema
+            </Typography>
+          </Box>
+
+          {/* Alert Values */}
+          {[
+            {
+              status: "Detetada Anomalia na Máquina 192.168.23.124 ",
+              icon: (
+                <ReportProblemRoundedIcon
+                  sx={{ color: "#F04437", fontSize: 40 }}
+                />
+              ),
+            },
+            {
+              status: "Falha na Criação do Relatório de Acessos",
+              icon: (
+                <ReportProblemRoundedIcon
+                  sx={{ color: "#F6D606", fontSize: 40 }}
+                />
+              ),
+            },
+            {
+              status: "Sistema Atualizado para a Versão 'v.1.5.2'",
+              icon: (
+                <ReportProblemRoundedIcon
+                  sx={{ color: "#CECECE", fontSize: 40 }}
+                />
+              ),
+            },
+            {
+              status: "Sistema Atualizado para a Versão 'v.1.5.1'",
+              icon: (
+                <ReportProblemRoundedIcon
+                  sx={{ color: "#CECECE", fontSize: 40 }}
+                />
+              ),
+            },
+          ].map((item, index) => (
+            <Box
+              key={index}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${colors.primary[500]}`}
+              p="15px"
+            >
+              <Box>{item.icon}</Box>
+
+              <Typography
+                color={colors.grey[100]}
+                variant="h5"
+                fontWeight="600"
+              >
+                {item.status}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+
+        {/* ActiveUsrs */}
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          overflow="auto"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary[500]}`}
+            colors={colors.grey[100]}
+            p="15px"
+          >
+            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+              Utilizadores Ativos
+            </Typography>
+          </Box>
+
+          {/* ActiveUsrs Values */}
+          {[
+            {
+              status: "A_Andrade90",
+              icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
+            },
+            {
+              status: "B_Baltazar91",
+              icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
+            },
+            {
+              status: "C_Candido92",
+              icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
+            },
+            {
+              status: "D_Diospiro93",
+              icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
+            },
+            {
+              status: "E_Ermindo94",
+              icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
+            },
+            {
+              status: "F_Franguinho95",
+              icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
+            },
+          ].map((item, index) => (
+            <Box
+              key={index}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${colors.primary[500]}`}
+              p="15px"
+            >
+              <Box>{item.icon}</Box>
+
+              <Typography
+                color={colors.grey[100]}
+                variant="h5"
+                fontWeight="600"
+              >
+                {item.status}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+
+        {/* Boxes with graphs
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -256,6 +453,48 @@ const Dashboard = () => {
           </Typography>
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
+          </Box>
+        </Box>
+      */}
+        <Box
+          gridColumn="span 12"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          mb="10px"
+        >
+          <Box
+            mt="25px"
+            p="0 30px"
+            display="flex "
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography
+                variant="h3"
+                fontWeight="bold"
+                color={colors.grey[100]}
+              >
+                Número de Acessos
+              </Typography>
+              {/* <Typography
+                variant="h3"
+                fontWeight="bold"
+                color={colors.grey[100]}
+              >
+                $59,342.32
+              </Typography> */}
+            </Box>
+            <Box>
+              <IconButton>
+                <DownloadOutlinedIcon
+                  sx={{ fontSize: "26px", color: colors.grey[100] }}
+                />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box height="250px" m="-20px 0 0 0">
+            <LineChart isDashboard={true} />
           </Box>
         </Box>
       </Box>
