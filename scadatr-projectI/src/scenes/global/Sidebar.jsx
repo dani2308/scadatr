@@ -127,7 +127,7 @@ const Sidebar = () => {
 
             <Item
               title="Alertas"
-              to="/team"
+              to="/alertas"
               icon={<ReportProblemIcon />}
               selected={selected}
               setSelected={setSelected}
