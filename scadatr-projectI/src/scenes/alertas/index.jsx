@@ -21,7 +21,7 @@ const Alerts = () => {
   return (
     <Box m="20px">
       <Header
-        title="Alertas"
+        title="ALERTAS"
         subtitle="Tabela de Alertas Criados pelo Sistema"
       />
       <Box
@@ -54,7 +54,6 @@ const Alerts = () => {
         }}
       >
         <DataGrid
-          checkboxSelection
           rows={mockDataTeam}
           columns={columns}
           rowCount={mockDataTeam.length}

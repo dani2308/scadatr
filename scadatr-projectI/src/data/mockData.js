@@ -244,6 +244,45 @@ export const mockDataInvoices = [
   },
 ];
 
+export const mockDataReports = [
+  {
+    id: 1,
+    name: "Relatório de Acessos - Última Semana",
+    tipo: "Relatório de Acessos",
+    creation_date: "06/01/25 - 15:23",    
+  },
+  {
+    id: 2,
+    name: "Relatório de Alertas Críticos - Dezembro 2024", 
+    tipo: "Relatório de Alertas",
+    creation_date: "02/01/25 - 10:00",
+  },
+  {
+    id: 3,
+    name: "Logs do Sistema - Últimos 30 dias",
+    tipo: "Relatório de Acessos",
+    creation_date: "02/01/25 - 09:30",
+  },
+  {
+    id: 4,
+    name: "Relatório de Acessos - Última Semana",
+    tipo: "Relatório de Acessos",
+    creation_date: "26/12/24 - 16:17",
+  },
+  {
+    id: 5,
+    name: "Relatório de Configurações - Última Semana",
+    tipo: "Relatório de Configurações",
+    creation_date: "18/12/24 - 17:14",
+  },
+  {
+    id: 6,
+    name: "Relatório de Alertas Críticos - Novembro 2024",
+    tipo: "Relatório de Alertas",
+    creation_date: "02/12/24 - 10:00",
+  },
+];
+
 export const mockTransactions = [
   {
     txId: "01e4dsa",

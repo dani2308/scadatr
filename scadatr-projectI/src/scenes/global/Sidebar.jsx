@@ -141,7 +141,7 @@ const Sidebar = () => {
             />
             <Item
               title="Relatórios"
-              to="/invoices"
+              to="/relatorios"
               icon={<AssignmentIcon />}
               selected={selected}
               setSelected={setSelected}
