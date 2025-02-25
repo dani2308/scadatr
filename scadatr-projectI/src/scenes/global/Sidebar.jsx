@@ -18,6 +18,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -149,7 +150,7 @@ const Sidebar = () => {
 
             <Item
               title="Utilizadores"
-              to="/form"
+              to="/users"
               icon={<PeopleIcon />}
               selected={selected}
               setSelected={setSelected}

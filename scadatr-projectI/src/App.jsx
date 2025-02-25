@@ -6,7 +6,7 @@ import Dashboard from "./scenes/dashboard";
 import Alerts from "./scenes/alertas";
 import Logs from "./scenes/logs";
 import Reports from "./scenes/relatorios";
-import Form from "./scenes/form";
+import Users from "./scenes/users";
 import FAQ from "./scenes/faq";
 import Bar from "./scenes/bar";
 import Pie from "./scenes/pie";
@@ -32,7 +32,7 @@ function App() {
               <Route path="/alertas" element={<Alerts />} />
               <Route path="/logs" element={<Logs />} />
               <Route path="/relatorios" element={<Reports />} />
-              <Route path="/form" element={<Form />} />
+              <Route path="/users" element={<Users />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
