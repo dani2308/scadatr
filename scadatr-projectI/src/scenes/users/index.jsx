@@ -1,11 +1,10 @@
 import { Box, Typography, useTheme, Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataReports } from "../../data/mockData";
+import { mockDataUsers } from "../../data/mockData";
 import Header from "../../components/Header";
-import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
-import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 
 const Users = () => {
@@ -19,13 +18,13 @@ const Users = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "tipo",
-      headerName: "Tipo",
+      field: "email",
+      headerName: "Email",
       flex: 1,
     },
     {
-      field: "creation_date",
-      headerName: "Data de Criação",
+      field: "profile",
+      headerName: "Perfil",
       flex: 1,
     },
     {
@@ -40,12 +39,12 @@ const Users = () => {
           width="100%"
           height="100%"
         >
-          <RemoveRedEyeRoundedIcon
+          <EditRoundedIcon
             sx={{ color: "#fcfcfc", cursor: "pointer" }}
             onClick={() => console.log("Ver relatório:", params.row)}
           />
-          <FileDownloadRoundedIcon
-            sx={{ color: "#fcfcfc", cursor: "pointer" }}
+          <DeleteRoundedIcon
+            sx={{ color: "#F04437", cursor: "pointer" }}
             onClick={() => console.log("Download relatório:", params.row)}
           />
         </Box>
@@ -74,7 +73,7 @@ const Users = () => {
             }}
           >
             <AddCircleRoundedIcon sx={{ mr: "10px" }} />
-            Criar Relatório
+            Criar Utilizador
           </Button>
         </Box>
       </Box>
@@ -108,7 +107,7 @@ const Users = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataReports} columns={columns} />
+        <DataGrid rows={mockDataUsers} columns={columns} />
       </Box>
     </Box>
   );

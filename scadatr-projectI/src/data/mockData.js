@@ -283,6 +283,45 @@ export const mockDataReports = [
   },
 ];
 
+export const mockDataUsers = [
+  {
+    id: 1,
+    name: "André Andrade",
+    email: "a_andrade@empresa.com",
+    profile: "Analista de Segurança",    
+  },
+  {
+    id: 2,  
+    name: "Berto Baltazar",
+    email: "b_baltazar@empresa.com",
+    profile: "Analista de Segurança", 
+  },
+  {
+    id: 3,
+    name: "Carlos Cândido",
+    email: "c_candido@empresa.com",
+    profile: "Comum", 
+  },
+  {
+    id: 4,
+    name: "Diana Duarte",
+    email: "d_duarte@empresa.com",
+    profile: "Comum",
+  },
+  {
+    id: 5,
+    name: "Eva Esteves",
+    email: "e_esteves@empresa.com",
+    profile: "Administrador",
+  },
+  {
+    id: 6,
+    name: "Simão Rogério",
+    email: "s_rogerio@empresa.com",
+    profile: "Administrador",
+  },
+];
+
 export const mockTransactions = [
   {
     txId: "01e4dsa",
