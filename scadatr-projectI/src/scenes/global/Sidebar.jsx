@@ -134,7 +134,7 @@ const Sidebar = () => {
             />
             <Item
               title="Logs"
-              to="/contacts"
+              to="/logs"
               icon={<WebStoriesIcon />}
               selected={selected}
               setSelected={setSelected}

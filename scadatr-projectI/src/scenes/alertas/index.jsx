@@ -18,11 +18,12 @@ const Team = () => {
     { field: "state", headerName: "Estado", flex: 0.6, minWidth: 100 },
   ];
 
-  console.log(mockDataTeam);
-
   return (
     <Box m="20px">
-      <Header title="Alertas" />
+      <Header
+        title="Alertas"
+        subtitle="Tabela de Alertas Criados pelo Sistema"
+      />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -61,8 +62,8 @@ const Team = () => {
           autoPageSize
           disableColumnResize
           sx={{
-            width: "100%", // Garante que a tabela não se expande além do contêiner
-            overflowX: "auto", // Caso haja necessidade de rolagem, permite apenas quando necessário
+            width: "100%",
+            overflowX: "auto",
           }}
         />
       </Box>
