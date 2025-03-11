@@ -4,7 +4,7 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Alerts from "./scenes/alertas";
-import Logs from "./scenes/logs";
+import Logs from "./scenes/logs_folder";
 import Reports from "./scenes/relatorios";
 import Users from "./scenes/users";
 import FAQ from "./scenes/faq";
@@ -30,7 +30,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/alertas" element={<Alerts />} />
-              <Route path="/logs" element={<Logs />} />
+              <Route path="/logs_folder" element={<Logs />} />
               <Route path="/relatorios" element={<Reports />} />
               <Route path="/users" element={<Users />} />
               <Route path="/faq" element={<FAQ />} />
