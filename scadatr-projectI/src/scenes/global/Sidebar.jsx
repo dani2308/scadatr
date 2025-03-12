@@ -54,10 +54,17 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#fcfcfc !important",
+          backgroundColor: `${colors.primary[600]} !important`, 
+          color: "#f0f0f0 !important",
+          borderRadius: "10px",
+          transition: "background-color 0.3s ease",
+          mr: "10px",
         },
         "& .pro-menu-item.active": {
-          color: "#fcfcfc !important",
+          backgroundColor: `${colors.primary[700]} !important`, 
+          color: "#f0f0f0 !important",
+          borderRadius: "10px",
+          mr: "10px",
         },
       }}
     >
@@ -135,7 +142,7 @@ const Sidebar = () => {
             />
             <Item
               title="Logs"
-              to="/logs"
+              to="/logs_folder"
               icon={<WebStoriesIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -4,7 +4,7 @@ import { tokens } from "../../theme";
 import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
 
-const Logs = () => {
+const LogsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -69,4 +69,4 @@ const Logs = () => {
   );
 };
 
-export default Logs;
+export default LogsPage;
