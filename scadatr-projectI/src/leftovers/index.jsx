@@ -193,5 +193,32 @@ const initialValues = {
 export default Form;
 
 !!! Form for adding new user !!!
+
+
+Gráficos
+            </Typography>
+            <Item
+              title="Bar Chart"
+              to="/bar"
+              icon={<BarChartOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Pie Chart"
+              to="/pie"
+              icon={<PieChartOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Line Chart"
+              to="/line"
+              icon={<TimelineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+  !!! Graphs For SideBar
   */
 }

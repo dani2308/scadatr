@@ -175,29 +175,7 @@ const Sidebar = () => {
               color={colors.grey[100]}
               sx={{ m: "25px 0 5px 20px" }}
             >
-              Gráficos
             </Typography>
-            <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
           </Box>
         </Menu>
       </ProSidebar>
