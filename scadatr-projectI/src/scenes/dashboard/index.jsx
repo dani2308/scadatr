@@ -19,13 +19,14 @@ const Dashboard = () => {
 
         <Box>
           <Button
+            variant="contained"
+            color="primary"
             sx={{
-              backgroundColor: colors.primary[400],
-              color: colors.grey[100],
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
-              ":hover": { backgroundColor: colors.primary[300] },
+              ml: 2, // Adiciona espaçamento à esquerda
+              ":hover": { backgroundColor: theme.palette.primary.dark },
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
@@ -44,7 +45,7 @@ const Dashboard = () => {
         <Box
           gridColumn="span 12"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={theme.palette.primary.main}
         >
           <Box
             mt="25px"
@@ -57,7 +58,7 @@ const Dashboard = () => {
               <Typography
                 variant="h3"
                 fontWeight="bold"
-                color={colors.grey[100]}
+                color={theme.palette.text.primary}
               >
                 Número de Acessos
               </Typography>
@@ -65,7 +66,7 @@ const Dashboard = () => {
             <Box>
               <IconButton>
                 <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.grey[100] }}
+                  sx={{ fontSize: "26px", color: theme.palette.text.primary }}
                 />
               </IconButton>
             </Box>
@@ -74,97 +75,84 @@ const Dashboard = () => {
             <LineChart isDashboard={true} />
           </Box>
         </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          overflow="auto"
-        >          
+        
           {/* SysState Values */}
           <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          overflow="auto"
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
-            p="15px"
+            gridColumn="span 4"
+            gridRow="span 2"
+            backgroundColor={theme.palette.primary.main}
+            overflow="auto"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Estado do Sistema
-            </Typography>
-          </Box>
-
-          {/* SysStatus Values */}
-          {[
-            {
-              status: "Base de Dados",
-              icon: (
-                <CircleIcon
-                  sx={{ color: "#F04437", fontSize: 20 }}
-                />
-              ),
-            },
-            {
-              status: "Servidor",
-              icon: (
-                <CircleIcon
-                  sx={{ color: "#08FA00", fontSize: 20 }}
-                />
-              ),
-            },
-            {
-              status: "Sistema",
-              icon: (
-                <CircleIcon
-                  sx={{ color: "#F6D606", fontSize: 20 }}
-                />
-              ),
-            },            
-          ].map((item, index) => (
             <Box
-              key={index}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              borderBottom={`4px solid ${theme.palette.divider}`}
+              colors={theme.palette.text.secondary}
               p="15px"
             >
-              <Box>{item.icon}</Box>
-
               <Typography
-                color={colors.grey[100]}
+                color={theme.palette.text.primary}
                 variant="h5"
                 fontWeight="600"
               >
-                {item.status}
+                Estado do Sistema
               </Typography>
             </Box>
-          ))}
-        </Box>
-        </Box>
+
+            {/* SysStatus Values */}
+            {[
+              {
+                status: "Base de Dados",
+                icon: <CircleIcon sx={{ color: "#F04437", fontSize: 20 }} />,
+              },
+              {
+                status: "Servidor",
+                icon: <CircleIcon sx={{ color: "#08FA00", fontSize: 20 }} />,
+              },
+              {
+                status: "Sistema",
+                icon: <CircleIcon sx={{ color: "#F6D606", fontSize: 20 }} />,
+              },
+            ].map((item, index) => (
+              <Box
+                key={index}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                borderBottom={`4px solid ${theme.palette.divider}`}
+                p="15px"
+              >
+                <Box>{item.icon}</Box>
+
+                <Typography
+                  color={theme.palette.text.primary}
+                  variant="h5"
+                  fontWeight="600"
+                >
+                  {item.status}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        
 
         {/* Alerts */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={theme.palette.primary.main}
           overflow="auto"
         >
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
+            borderBottom={`4px solid ${theme.palette.divider}`}
+            colors={theme.palette.primary.main}
             p="15px"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+            <Typography color={theme.palette.text.primary} variant="h5" fontWeight="600">
               Alertas Recentes
             </Typography>
           </Box>
@@ -209,13 +197,13 @@ const Dashboard = () => {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              borderBottom={`4px solid ${theme.palette.divider}`}
               p="15px"
             >
               <Box>{item.icon}</Box>
 
               <Typography
-                color={colors.grey[100]}
+                color={theme.palette.text.primary}
                 variant="h5"
                 fontWeight="600"
               >
@@ -229,18 +217,18 @@ const Dashboard = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={theme.palette.primary.main}
           overflow="auto"
         >
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
+            borderBottom={`4px solid ${theme.palette.divider}`}
+            colors={theme.palette.divider}
             p="15px"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+            <Typography color={theme.palette.text.primary} variant="h5" fontWeight="600">
               Utilizadores Ativos
             </Typography>
           </Box>
@@ -277,13 +265,13 @@ const Dashboard = () => {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              borderBottom={`4px solid ${theme.palette.divider}`}
               p="15px"
             >
               <Box>{item.icon}</Box>
 
               <Typography
-                color={colors.grey[100]}
+                color={theme.palette.text.primary}
                 variant="h5"
                 fontWeight="600"
               >
@@ -296,7 +284,7 @@ const Dashboard = () => {
         <Box
           gridColumn="span 12"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={theme.palette.primary.main}
           mb="10px"
         >
           <Box
@@ -310,7 +298,7 @@ const Dashboard = () => {
               <Typography
                 variant="h3"
                 fontWeight="bold"
-                color={colors.grey[100]}
+                color={theme.palette.text.primary}
               >
                 Número de Acessos
               </Typography>
@@ -318,7 +306,7 @@ const Dashboard = () => {
             <Box>
               <IconButton>
                 <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.grey[100] }}
+                  sx={{ fontSize: "26px", color: theme.palette.text.primary }}
                 />
               </IconButton>
             </Box>
