@@ -25,7 +25,7 @@ const Dashboard = () => {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
-              ml: 2, // Adiciona espaçamento à esquerda
+              ml: 2, 
               ":hover": { backgroundColor: theme.palette.primary.dark },
             }}
           >
@@ -40,12 +40,13 @@ const Dashboard = () => {
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridAutoRows="140px"
-        gap="20px"
+        gap="20px"        
       >
         <Box
           gridColumn="span 12"
           gridRow="span 2"
           backgroundColor={theme.palette.primary.main}
+          borderRadius='10px'
         >
           <Box
             mt="25px"
@@ -82,6 +83,7 @@ const Dashboard = () => {
             gridRow="span 2"
             backgroundColor={theme.palette.primary.main}
             overflow="auto"
+            borderRadius='10px'
           >
             <Box
               display="flex"
@@ -121,7 +123,7 @@ const Dashboard = () => {
                 justifyContent="space-between"
                 alignItems="center"
                 borderBottom={`4px solid ${theme.palette.divider}`}
-                p="15px"
+                p="15px"                
               >
                 <Box>{item.icon}</Box>
 
@@ -142,7 +144,8 @@ const Dashboard = () => {
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={theme.palette.primary.main}
-          overflow="auto"
+          overflow="auto"  
+          borderRadius='10px'        
         >
           <Box
             display="flex"
@@ -150,7 +153,7 @@ const Dashboard = () => {
             alignItems="center"
             borderBottom={`4px solid ${theme.palette.divider}`}
             colors={theme.palette.primary.main}
-            p="15px"
+            p="15px"            
           >
             <Typography color={theme.palette.text.primary} variant="h5" fontWeight="600">
               Alertas Recentes
@@ -219,6 +222,7 @@ const Dashboard = () => {
           gridRow="span 2"
           backgroundColor={theme.palette.primary.main}
           overflow="auto"
+          borderRadius='10px'
         >
           <Box
             display="flex"
@@ -286,6 +290,7 @@ const Dashboard = () => {
           gridRow="span 2"
           backgroundColor={theme.palette.primary.main}
           mb="10px"
+          borderRadius='10px'
         >
           <Box
             mt="25px"
