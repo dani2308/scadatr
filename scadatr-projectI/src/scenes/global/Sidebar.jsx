@@ -20,7 +20,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     <MenuItem
       active={selected === title}
       style={{
-        color: colors.grey[100],
+        color: theme.palette.text.primary,
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -52,14 +52,14 @@ const Sidebar = () => {
         },
         "& .pro-inner-item:hover": {
           backgroundColor: `${colors.primary[600]} !important`, 
-          color: "#f0f0f0 !important",
+          color: `${theme.palette.text.primary} !important`,
           borderRadius: "10px",
           transition: "background-color 0.3s ease",
           mr: "10px",
         },
         "& .pro-menu-item.active": {
           backgroundColor: `${colors.primary[700]} !important`, 
-          color: "#f0f0f0 !important",
+          color: `${theme.palette.text.primary} !important`,
           borderRadius: "10px",
           mr: "10px",
         },
@@ -73,7 +73,7 @@ const Sidebar = () => {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              color: theme.palette.text.primary,
             }}
           >
             {!isCollapsed && (
@@ -83,7 +83,7 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
+                <Typography variant="h3" color={theme.palette.text.primary}>
                   SCADATR
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -107,13 +107,13 @@ const Sidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h3"
-                  color={colors.grey[100]}
+                  color={theme.palette.text.primary}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
                   S_Rogerio98
                 </Typography>
-                <Typography variant="h5" color={colors.grey[100]}>
+                <Typography variant="h5" color={theme.palette.text.primary}>
                   Administrador
                 </Typography>
               </Box>
@@ -169,7 +169,7 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[100]}
+              color={theme.palette.text.primary}
               sx={{ m: "25px 0 5px 20px" }}
             >
             </Typography>

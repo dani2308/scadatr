@@ -10,26 +10,31 @@ import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 const Users = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   const columns = [
     {
       field: "name",
       headerName: "Nome",
       flex: 1,
       cellClassName: "name-column--cell",
+      headerClassName: "custom-header",
     },
     {
       field: "email",
       headerName: "Email",
       flex: 1,
+      headerClassName: "custom-header",
     },
     {
       field: "profile",
       headerName: "Perfil",
       flex: 1,
+      headerClassName: "custom-header",
     },
     {
       flex: 0,
       sortable: false,
+      headerClassName: "custom-header",
       renderCell: (params) => (
         <Box
           display="flex"
@@ -40,12 +45,12 @@ const Users = () => {
           height="100%"
         >
           <EditRoundedIcon
-            sx={{ color: "#fcfcfc", cursor: "pointer" }}
-            onClick={() => console.log("Ver relatório:", params.row)}
+            sx={{ color: colors.grey[100], cursor: "pointer" }}
+            onClick={() => console.log("Editar utilizador:", params.row)}
           />
           <DeleteRoundedIcon
             sx={{ color: "#F04437", cursor: "pointer" }}
-            onClick={() => console.log("Download relatório:", params.row)}
+            onClick={() => console.log("Eliminar utilizador:", params.row)}
           />
         </Box>
       ),
@@ -65,8 +70,8 @@ const Users = () => {
         <Box>
           <Button
             sx={{
-              backgroundColor: colors.primary[400],
-              color: colors.grey[100],
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.text.primary,
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
@@ -86,21 +91,32 @@ const Users = () => {
             border: "none",
           },
           "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
+            borderBottom: `1px solid ${colors.primary[600]}`,
             color: colors.grey[100],
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.accent[700],
-            borderBottom: "none",
+            color: colors.grey[100],
+            fontWeight: "bold",
+            fontSize: "16px",
+          },
+          "& .custom-header": {
+            backgroundColor: `${theme.palette.primary.main} !important`,
+            color: "#FFFFFF !important",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.primary[900],
+          },
+          "& .MuiDataGrid-row:nth-of-type(even)": {
+            backgroundColor: colors.primary[800],
+          },
+          "& .MuiDataGrid-row:nth-of-type(odd)": {
+            backgroundColor: colors.primary[900],
           },
           "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.accent[700],
+            borderTop: `2px solid ${colors.primary[600]}`,
+            backgroundColor: colors.primary[700],
+            color: colors.grey[100],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.grey[100]} !important`,
