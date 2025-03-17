@@ -7,13 +7,11 @@ import Alerts from "./scenes/alertas";
 import LogsPage from "./scenes/logs_folder";
 import Reports from "./scenes/relatorios";
 import Users from "./scenes/users";
-import FAQ from "./scenes/faq";
-import Bar from "./scenes/bar";
-import Pie from "./scenes/pie";
-import Line from "./scenes/line";
+import ConfsPage from "./scenes/confs";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
+
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -33,10 +31,7 @@ function App() {
               <Route path="/logs_folder" element={<LogsPage />} />
               <Route path="/relatorios" element={<Reports />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
+              <Route path="/confs" element={<ConfsPage />} />            
             </Routes>
           </main>
         </div>

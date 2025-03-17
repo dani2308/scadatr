@@ -161,7 +161,7 @@ const Sidebar = () => {
             />
             <Item
               title="Configurações"
-              to="/calendar"
+              to="/confs"
               icon={<SettingsIcon />}
               selected={selected}
               setSelected={setSelected}
