@@ -141,21 +141,25 @@ const Dashboard = () => {
 
         {/* Alerts */}
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={theme.palette.primary.main}
-          overflow="auto"  
-          borderRadius='10px'        
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${theme.palette.divider}`}
-            colors={theme.palette.primary.main}
-            p="15px"            
+            gridColumn="span 4"
+            gridRow="span 2"
+            backgroundColor={theme.palette.primary.main}
+            overflow="auto"
+            borderRadius='10px'
           >
-            <Typography color={theme.palette.text.primary} variant="h5" fontWeight="600">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${theme.palette.divider}`}
+              colors={theme.palette.text.secondary}
+              p="15px"
+            >
+              <Typography
+                color={theme.palette.text.primary}
+                variant="h5"
+                fontWeight="600"
+              >
               Alertas Recentes
             </Typography>
           </Box>
@@ -201,7 +205,7 @@ const Dashboard = () => {
               justifyContent="space-between"
               alignItems="center"
               borderBottom={`4px solid ${theme.palette.divider}`}
-              p="15px"
+              p="15px"                
             >
               <Box>{item.icon}</Box>
 
@@ -209,6 +213,7 @@ const Dashboard = () => {
                 color={theme.palette.text.primary}
                 variant="h5"
                 fontWeight="600"
+                ml="10px"                
               >
                 {item.status}
               </Typography>
