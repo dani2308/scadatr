@@ -36,7 +36,7 @@ def get_alerts(db: Session = Depends(get_db)):
 def create_alert(alert: schemas.AlertCreate, db: Session = Depends(get_db)):
     db_alert = models.Alert(
         timestamp = alert.timestamp,
-        descrription = alert.description,
+        description = alert.description,
         severity = alert.severity,
         user_id = alert.user_id
     )
