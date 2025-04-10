@@ -16,7 +16,7 @@ class UserResponse(UserBase):
     id: int
 
     class Config:
-        orm_mode = True
+        form_attributes = True
 
 
 # --- Logs ---
@@ -38,7 +38,7 @@ class LogResponse(LogBase):
     user_id: int
 
     class Config:
-        orm_mode = True
+        form_attributes = True
 
 
 # --- Alerts ---
@@ -57,4 +57,4 @@ class AlertResponse(AlertBase):
     user_id: int
 
     class Config:
-        orm_mode = True
+        form_attributes = True
