@@ -8,6 +8,11 @@ from app.database import engine, get_db
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
+# --Verificar se backend está ativo--
+@app.get("/")
+def root():
+    return {"message": "Backend ativo! Vai a /docs para ver a API."}
+
 # --Login--
 @app.post("/login", response_model=schemas.Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):

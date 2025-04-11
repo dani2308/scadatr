@@ -12,7 +12,6 @@ import ConfsPage from "./scenes/confs";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
-
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -31,7 +30,7 @@ function App() {
               <Route path="/logs_folder" element={<LogsPage />} />
               <Route path="/relatorios" element={<Reports />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/confs" element={<ConfsPage />} />            
+              <Route path="/confs" element={<ConfsPage />} />
             </Routes>
           </main>
         </div>
