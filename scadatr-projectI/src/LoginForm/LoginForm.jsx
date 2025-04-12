@@ -1,9 +1,8 @@
-// LoginForm.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { FaUser, FaLock } from "react-icons/fa";
-import scadatr_logo from "../../assets/scadatr_logo.png";
+import scadatr_logo from "../assets/scadatr_logo.png";
 
 const LoginForm = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
@@ -39,48 +38,50 @@ const LoginForm = ({ setIsAuthenticated }) => {
       const data = await response.json();
       localStorage.setItem("accessToken", data.access_token);
       setIsAuthenticated(true);
-      navigate("/dashboard");
+      navigate("/"); // Redireciona para a dashboard
     } catch (err) {
       setError(err.message || "Erro ao fazer login");
     }
   };
 
   return (
-    <div className="wrapper">
-      <form onSubmit={handleSubmit}>
-        <img src={scadatr_logo} alt="Logo" className="logo" />
-        <h1>Login</h1>
-        <div className="input-box">
-          <input
-            type="text"
-            placeholder="Utilizador"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <FaUser className="icon" />
-        </div>
-        <div className="input-box">
-          <input
-            type="password"
-            placeholder="Palavra-Passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <FaLock className="icon" />
-        </div>
-        {error && <div className="error">{error}</div>}
-        <div className="remember-me">
-          <label>
-            <input type="checkbox" /> Mantenha a sessão iniciada
-          </label>
-        </div>
-        <button type="submit">Login</button>
-        <div className="forgot-password">
-          <a href="#">Esqueceu-se da Palavra-Passe?</a>
-        </div>
-      </form>
+    <div className="login-page">
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <img src={scadatr_logo} alt="Logo" className="logo" />
+          <h1>Login</h1>
+          <div className="input-box">
+            <input
+              type="text"
+              placeholder="Utilizador"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <FaUser className="icon" />
+          </div>
+          <div className="input-box">
+            <input
+              type="password"
+              placeholder="Palavra-Passe"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <FaLock className="icon" />
+          </div>
+          {error && <div className="error">{error}</div>}
+          <div className="remember-me">
+            <label>
+              <input type="checkbox" /> Mantenha a sessão iniciada
+            </label>
+          </div>
+          <button type="submit">Login</button>
+          <div className="forgot-password">
+            <a href="#">Esqueceu-se da Palavra-Passe?</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

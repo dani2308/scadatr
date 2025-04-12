@@ -1,18 +1,44 @@
+/* :root {
+    --color-primary: #2980b9;
+    --color-secondary: #f39c12;
+    --color-quinary: #8e44ad;
+    --color-dark: #1e1e1e;
+} */
 
 body.login-form-page {
-    background: linear-gradient(to left, var(--color-quinary), var(--color-secondary));
+    background: linear-gradient(to left, #ADD7FF, #42A1FF);
+    height: 100vh;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to left, #ADD7FF, #42A1FF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;    
 }
 
 .wrapper {
     width: 500px;
-    background: var(--color-dark);
-    color: #fff;
+    background: #1e1e1e;    
+    color: #ffffff;
     border-radius: 10px;
-    padding: 20px 70px 50px 70px; /*top right bottom left*/
+    padding: 20px 70px 50px 70px;
 
+    flex-shrink: 0;
 }
 
-.logo{
+.logo {
     display: block;
     margin: 0 auto 20px;
     width: 300px;
@@ -29,10 +55,11 @@ body.login-form-page {
 .wrapper h1::after {
     content: '';
     display: block;
-    width: 70px; 
-    height: 2px; 
-    background-color: var(--color-secondary);
-    margin: 10px auto 0; 
+    width: 70px;
+    height: 2px;
+    background-color: #42A1FF;
+    /* laranja forte */
+    margin: 10px auto 0;
 }
 
 .wrapper .input-box {
@@ -42,10 +69,9 @@ body.login-form-page {
     margin: 25px 0;
 }
 
-.wrapper input[type="checkbox"]{
-    accent-color: var(--color-secondary);
+.wrapper input[type="checkbox"] {
+    accent-color: #42A1FF;
 }
-
 
 .input-box input {
     width: 100%;
@@ -54,12 +80,12 @@ body.login-form-page {
     outline: none;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
-    font-size: 16px;    
+    font-size: 16px;
     font-weight: 600;
     padding: 20px 45px 20px 20px;
 }
 
-.input-box input::placeholder{
+.input-box input::placeholder {
     color: #BDBDBD;
 }
 
@@ -72,14 +98,13 @@ body.login-form-page {
     color: gray;
 }
 
-.wrapper .remember-me{
+.wrapper .remember-me {
     display: flex;
     justify-content: center;
     align-items: center;
-    accent-color: #fff;    
-    font-weight: 500;    
+    accent-color: #ffffff;
+    font-weight: 500;
 }
-
 
 .forgot-password {
     text-align: center;
@@ -101,9 +126,9 @@ body.login-form-page {
     border: none;
     outline: none;
     border-radius: 20px;
-    box-shadow: 0 0 10px blue(0, 0, 0, 0.1);
-    background-color: var(--color-secondary);
-    color: #fff;
+    background-color: #42A1FF;
+    /* laranja forte */
+    color: #ffffff;
     font-size: 20px;
     cursor: pointer;
     font-weight: 700;
@@ -111,7 +136,13 @@ body.login-form-page {
 }
 
 .wrapper button:hover {
-    background-color: var(--color-primary);
+    background-color: #2290FF;
+    /* laranja mais escuro */
 }
 
-
+.error {
+    color: #ff4d4d;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
