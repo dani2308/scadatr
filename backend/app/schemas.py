@@ -1,32 +1,28 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
-from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel
 
+# Removido: OAuth2PasswordBearer (não deve estar aqui)
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
+# --- Token ---
 class Token(BaseModel):
     access_token: str
     token_type: str
 
 # --- Users ---
 class UserBase(BaseModel):
-    username: str
-    role: Optional[str] = "user"
-
+    email: str
+    name: str
 
 class UserCreate(UserBase):
     password: str
 
-
 class UserResponse(UserBase):
     id: int
+    created_at: datetime
 
     class Config:
-        form_attributes = True
-
+        orm_mode = True 
 
 # --- Logs ---
 class LogBase(BaseModel):
@@ -37,18 +33,15 @@ class LogBase(BaseModel):
     length: int
     label: str
 
-
 class LogCreate(LogBase):
     user_id: int
-
 
 class LogResponse(LogBase):
     id: int
     user_id: int
 
     class Config:
-        form_attributes = True
-
+        orm_mode = True  # Corrigido: era 'form_attributes'
 
 # --- Alerts ---
 class AlertBase(BaseModel):
@@ -56,14 +49,12 @@ class AlertBase(BaseModel):
     description: str
     severity: str
 
-
 class AlertCreate(AlertBase):
     user_id: int
-
 
 class AlertResponse(AlertBase):
     id: int
     user_id: int
 
     class Config:
-        form_attributes = True
+        orm_mode = True  # Corrigido: era 'form_attributes'
