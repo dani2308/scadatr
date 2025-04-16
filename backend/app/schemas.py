@@ -34,7 +34,7 @@ class LogBase(BaseModel):
     label: str
 
 class LogCreate(LogBase):
-    user_id: int
+    pass
 
 class LogResponse(LogBase):
     id: int
@@ -50,7 +50,7 @@ class AlertBase(BaseModel):
     severity: str
 
 class AlertCreate(AlertBase):
-    user_id: int
+    pass
 
 class AlertResponse(AlertBase):
     id: int
@@ -58,3 +58,7 @@ class AlertResponse(AlertBase):
 
     class Config:
         orm_mode = True  # Corrigido: era 'form_attributes'
+
+class PredictionResponse(BaseModel):
+    prediction: str
+    log_id: int
