@@ -30,8 +30,8 @@ class LogBase(BaseModel):
     source_ip: str
     destination_ip: str
     protocol: str
-    length: int
-    label: str
+    packet_size: int  
+    prediction: str  
 
 class LogCreate(LogBase):
     pass
@@ -41,7 +41,7 @@ class LogResponse(LogBase):
     user_id: int
 
     class Config:
-        orm_mode = True  # Corrigido: era 'form_attributes'
+        orm_mode = True
 
 # --- Alerts ---
 class AlertBase(BaseModel):

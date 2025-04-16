@@ -6,7 +6,8 @@ from datetime import datetime
 
 from app import schemas, models, auth
 from app.database import engine, get_db
-from ml_model import predict_traffic, predict_with_models
+from app.ml_model import predict_traffic, predict_with_models
+from app import crud
 
 # Inicializar FastAPI
 app = FastAPI()
@@ -77,8 +78,8 @@ def create_log(log: schemas.LogCreate, db: Session = Depends(get_db), current_us
         source_ip=log.source_ip,
         destination_ip=log.destination_ip,
         protocol=log.protocol,
-        length=log.length,
-        label=log.label,
+        packet_size=log.packet_size,  
+        prediction=log.prediction,    
         user_id=current_user.id
     )
     db.add(db_log)

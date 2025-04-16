@@ -1,50 +1,57 @@
+import { useEffect, useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
+import { tokens } from "../../theme";
+import axios from "axios";
 
 const LogsPage = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode) || {
-    primary: { 600: "#1E3A8A", 700: "#162D5D", 800: "#121C3D", 900: "#0B1327" },
-    grey: { 100: "#FFFFFF" },
-    accent: { 400: "#3B82F6", 500: "#2563EB", 700: "#1E40AF" },
-  };
+  const colors = tokens(theme.palette.mode);
+  const [logs, setLogs] = useState([]);
 
-  const rows = mockDataInvoices.map((item, index) => ({
-    id: item.id || index,
-    ...item,
-  }));
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:8000/logs", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setLogs(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar logs:", error);
+      }
+    };
+
+    fetchLogs();
+  }, []);
 
   const columns = [
-    { field: "tipo", headerName: "Tipo", flex: 1, headerClassName: "custom-header" },
-    { field: "origem", headerName: "Origem", flex: 1, headerClassName: "custom-header" },
-    { field: "date_hour", headerName: "Data/Hora", flex: 1, headerClassName: "custom-header" },
-    { field: "description", headerName: "Descrição", flex: 2, headerClassName: "custom-header" },
+    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "timestamp", headerName: "Data/Hora", flex: 1 },
+    { field: "source_ip", headerName: "IP Origem", flex: 1 },
+    { field: "destination_ip", headerName: "IP Destino", flex: 1 },
+    { field: "protocol", headerName: "Protocolo", flex: 1 },
+    { field: "packet_size", headerName: "Tamanho Pacote", flex: 1 },
+    { field: "prediction", headerName: "Predição", flex: 1 },
+    { field: "user_id", headerName: "ID Utilizador", flex: 1 },
   ];
-
-  console.log("Dados carregados:", rows);
 
   return (
     <Box m="20px">
-      <Header title="LOGS" subtitle="Tabela de Logs Captados pelo Sistema" />
+      <Header title="LOGS" subtitle="Registos de tráfego analisado" />
       <Box
         m="40px 0 0 0"
         height="75vh"
         sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
+          "& .MuiDataGrid-root": { border: "none" },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: `${theme.palette.primary.main} !important`,
-            color: "#FFFFFF !important",
+            backgroundColor: theme.palette.primary.main,
+            color: "#FFFFFF",
             fontWeight: "bold",
             fontSize: "16px",
-          },
-          "& .custom-header": {
-            backgroundColor: `${theme.palette.primary.main} !important`,
-            color: "#FFFFFF !important",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: `1px solid ${colors.primary[600]}`,
@@ -67,16 +74,11 @@ const LogsPage = () => {
         }}
       >
         <DataGrid
-          rows={mockDataInvoices}
+          rows={logs}
           columns={columns}
-          rowCount={mockDataInvoices.length}
-          paginationMode="server"
+          getRowId={(row) => row.id}
           autoPageSize
           disableColumnResize
-          sx={{
-            width: "100%",
-            overflowX: "auto",
-          }}
         />
       </Box>
     </Box>

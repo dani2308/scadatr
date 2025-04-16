@@ -34,6 +34,7 @@ def create_log(db: Session, log: schemas.LogCreate):
 def get_logs(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Log).offset(skip).limit(limit).all()
 
+
 # --- ALERTS ---
 def create_alert(db: Session, alert: schemas.AlertCreate):
     db_alert = models.Alert(**alert.dict())
