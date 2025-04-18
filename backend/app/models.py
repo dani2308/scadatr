@@ -31,7 +31,6 @@ class Log(Base):
     user = relationship("User", back_populates="logs")
 
 
-
 class Alert(Base):
     __tablename__ = "alerts"
 

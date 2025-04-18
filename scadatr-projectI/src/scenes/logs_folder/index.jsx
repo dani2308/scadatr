@@ -13,13 +13,20 @@ const LogsPage = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          console.error(
+            "Token JWT não encontrado. Utilizador não autenticado."
+          );
+          return;
+        }
         const response = await axios.get("http://localhost:8000/logs", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setLogs(response.data);
+        console.log("Dados recebidos:", response.data);
       } catch (error) {
         console.error("Erro ao buscar logs:", error);
       }

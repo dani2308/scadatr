@@ -127,8 +127,8 @@ def predict_and_alert(log: schemas.LogCreate, db: Session = Depends(get_db), cur
         source_ip=log.source_ip,
         destination_ip=log.destination_ip,
         protocol=log.protocol,
-        length=log.packet_size,
-        label=log.prediction,
+        packet_size=log.packet_size,
+        prediction=log.prediction,
         user_id=current_user.id
     )
     db.add(db_log)
@@ -139,7 +139,7 @@ def predict_and_alert(log: schemas.LogCreate, db: Session = Depends(get_db), cur
         "source_ip": log.source_ip,
         "destination_ip": log.destination_ip,
         "protocol": log.protocol,
-        "length": log.packet_size,
+        "packet_size": log.packet_size,
     }
 
     prediction = predict_traffic(features)
