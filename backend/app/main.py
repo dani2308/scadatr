@@ -121,40 +121,37 @@ def create_alert(alert: schemas.AlertCreate, db: Session = Depends(get_db), curr
 
 # ---------------------- PREDIÇÃO ML ----------------------
 @app.post("/predict", response_model=schemas.PredictionResponse)
-def predict_and_alert(log: schemas.LogCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+def predict_and_alert(log_data: schemas.PredictionInput, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    # Converte o Pydantic model para dict
+    features_dict = log_data.dict()
+
+    # Faz a predição
+    prediction = predict_traffic(features_dict)
+
+    # Guarda o log (adaptar se necessário, aqui está só a base)
     db_log = models.Log(
-        timestamp=log.timestamp or datetime.utcnow(),
-        source_ip=log.source_ip,
-        destination_ip=log.destination_ip,
-        protocol=log.protocol,
-        packet_size=log.packet_size,
-        prediction=log.prediction,
+        timestamp=datetime.utcnow(),
+        source_ip="0.0.0.0",  # Se quiseres adicionar estes campos ao PredictionInput, faz sentido
+        destination_ip="0.0.0.0",
+        protocol="UNKNOWN",
+        packet_size=int(features_dict.get("Total_Length_of_Fwd_Packets", 0)),
+        prediction=prediction,
         user_id=current_user.id
     )
     db.add(db_log)
     db.commit()
     db.refresh(db_log)
 
-    features = {
-        "source_ip": log.source_ip,
-        "destination_ip": log.destination_ip,
-        "protocol": log.protocol,
-        "packet_size": log.packet_size,
-    }
-
-    prediction = predict_traffic(features)
-
+    # Criar alerta se for ataque
     if prediction == "Attack":
         alert = models.Alert(
             timestamp=datetime.utcnow(),
-            description=f"Ataque detetado de {log.source_ip} para {log.destination_ip}",
+            description=f"Ataque detetado nos dados de tráfego.",
             severity="High",
             user_id=current_user.id
         )
         db.add(alert)
         db.commit()
 
-    return {
-        "prediction": prediction,
-        "log_id": db_log.id
-    }
+    return {"prediction": prediction, "log_id": db_log.id}
+

@@ -5,8 +5,26 @@ import time
 
 # --- Configurações ---
 API_URL = "http://localhost:8000/predict"
-ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBzY2FkYXRyLmNvbSIsImV4cCI6MTc0NTAyNjM3OX0.2mvW9LRAufYFdzwfnWqXW8YDsD0KoY4t5vI204blpPE"  # Substitui isto por um token válido
-INTERVALO_SEGUNDOS = 3  # Frequência com que os logs são enviados
+LOGIN_URL = "http://localhost:8000/login"
+EMAIL = "admin@scadatr.com"         # Substitui pelo teu email de login real
+PASSWORD = "1234"                  # Substitui pela tua palavra-passe real
+INTERVALO_SEGUNDOS = 3              # Frequência com que os logs são enviados
+
+# --- Autenticação ---
+def obter_token_jwt(email, password):
+    try:
+        response = requests.post(
+            LOGIN_URL,
+            data={"username": email, "password": password},
+            headers={"Content-Type": "application/x-www-form-urlencoded"}
+        )
+        response.raise_for_status()
+        token = response.json().get("access_token")
+        print("🔐 Token JWT obtido com sucesso.")
+        return token
+    except Exception as e:
+        print("❌ Erro ao obter token JWT:", e)
+        return None
 
 # --- Geração de dados simulados ---
 def gerar_log_simulado():
@@ -16,13 +34,13 @@ def gerar_log_simulado():
         "destination_ip": f"10.0.{random.randint(0, 255)}.{random.randint(0, 255)}",
         "protocol": random.choice(["TCP", "UDP", "ICMP"]),
         "packet_size": random.randint(20, 1500),
-        "prediction": "Desconhecido"  # Este campo é substituído no backend pela predição real
+        "prediction": "Desconhecido"  # É sobrescrito no backend
     }
 
 # --- Envio para a API ---
-def enviar_log(log):
+def enviar_log(log, token):
     headers = {
-        "Authorization": f"Bearer {ACCESS_TOKEN}"
+        "Authorization": f"Bearer {token}"
     }
     try:
         response = requests.post(API_URL, json=log, headers=headers)
@@ -36,7 +54,13 @@ def enviar_log(log):
 # --- Loop principal ---
 if __name__ == "__main__":
     print("🚀 Início da simulação de tráfego...")
+
+    token = obter_token_jwt(EMAIL, PASSWORD)
+    if not token:
+        print("⛔ Não foi possível iniciar a simulação — token inválido.")
+        exit(1)
+
     while True:
         log = gerar_log_simulado()
-        enviar_log(log)
+        enviar_log(log, token)
         time.sleep(INTERVALO_SEGUNDOS)
