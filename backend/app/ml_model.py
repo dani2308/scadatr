@@ -1,10 +1,15 @@
 import joblib
 import numpy as np
 import pandas as pd
+from pathlib import Path
+
+MODEL_PATH = Path(__file__).resolve().parent / "models" / "random_forest_model.pkl"
+SCALER_PATH = Path(__file__).resolve().parent / "models" / "scaler.pkl"
 
 # Carregar modelo e scaler
-model = joblib.load("model/random_forest_model.pkl")
-scaler = joblib.load("model/scaler.pkl")
+model = joblib.load(MODEL_PATH)
+scaler = joblib.load(SCALER_PATH)
+
 
 # Lista de features usada durante o treino (ordem correta)
 FEATURE_COLUMNS = [

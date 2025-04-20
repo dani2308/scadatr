@@ -6,7 +6,7 @@ from datetime import datetime
 
 from app import schemas, models, auth
 from app.database import engine, get_db
-from app.ml_model import predict_traffic, predict_with_models
+from app.ml_model import predict_traffic
 from app import crud
 
 # Inicializar FastAPI
@@ -85,19 +85,6 @@ def create_log(log: schemas.LogCreate, db: Session = Depends(get_db), current_us
     db.add(db_log)
     db.commit()
     db.refresh(db_log)
-
-    # Aplicar modelos ML
-    is_anomalous = predict_with_models(log)
-
-    if is_anomalous:
-        alert = models.Alert(
-            timestamp=datetime.utcnow(),
-            description="Anomalia detetada nos logs.",
-            severity="Alta",
-            user_id=current_user.id
-        )
-        db.add(alert)
-        db.commit()
 
     return db_log
 
