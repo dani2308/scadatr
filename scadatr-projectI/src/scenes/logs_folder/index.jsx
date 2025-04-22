@@ -20,15 +20,24 @@ const LogsPage = () => {
           );
           return;
         }
+
         const response = await axios.get("http://localhost:8000/logs", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setLogs(response.data);
-        console.log("Dados recebidos:", response.data);
+
+        const dadosFormatados = response.data.map((log) => ({
+          ...log,
+          timestamp: log.timestamp
+            ? new Date(log.timestamp).toLocaleString("pt-PT")
+            : "—",
+        }));
+
+        setLogs(dadosFormatados);
+        console.log("✅ Logs recebidos:", dadosFormatados);
       } catch (error) {
-        console.error("Erro ao buscar logs:", error);
+        console.error("❌ Erro ao buscar logs:", error);
       }
     };
 
@@ -42,7 +51,21 @@ const LogsPage = () => {
     { field: "destination_ip", headerName: "IP Destino", flex: 1 },
     { field: "protocol", headerName: "Protocolo", flex: 1 },
     { field: "packet_size", headerName: "Tamanho Pacote", flex: 1 },
-    { field: "prediction", headerName: "Predição", flex: 1 },
+    {
+      field: "prediction",
+      headerName: "Predição",
+      flex: 1,
+      renderCell: (params) => (
+        <strong
+          style={{
+            color: params.value === "Attack" ? "#f44336" : "#4caf50",
+            fontWeight: "bold",
+          }}
+        >
+          {params.value}
+        </strong>
+      ),
+    },
     { field: "user_id", headerName: "ID Utilizador", flex: 1 },
   ];
 
@@ -86,6 +109,11 @@ const LogsPage = () => {
           getRowId={(row) => row.id}
           autoPageSize
           disableColumnResize
+          initialState={{
+            sorting: {
+              sortModel: [{ field: "id", sort: "desc" }],
+            },
+          }}
         />
       </Box>
     </Box>
