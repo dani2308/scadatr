@@ -5,11 +5,59 @@ import ReportProblemRoundedIcon from "@mui/icons-material/ReportProblemRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
+import PieChart from "../../components/PieChart";
 import CircleIcon from "@mui/icons-material/Circle";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [alerts, setAlerts] = useState([]);
+  const [attackStats, setAttackStats] = useState({
+    dailyCounts: {},
+    severityCounts: {},
+  });
+
+  useEffect(() => {
+    const fetchAlerts = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.get("/alerts", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const fetchedAlerts = Array.isArray(response.data) ? response.data : [];
+
+        // Prepara dados para os gráficos
+        const dailyCounts = {};
+        const severityCounts = { High: 0, Medium: 0, Low: 0 };
+
+        fetchedAlerts.forEach((alert) => {
+          // Contar por data
+          const date = new Date(alert.timestamp).toLocaleDateString(); // ou .toISOString().slice(0,10)
+          dailyCounts[date] = (dailyCounts[date] || 0) + 1;
+
+          // Contar por severidade
+          if (alert.severity in severityCounts) {
+            severityCounts[alert.severity]++;
+          }
+        });
+
+        setAlerts(fetchedAlerts);
+        setAttackStats({ dailyCounts, severityCounts });
+      } catch (error) {
+        console.error("Erro ao buscar alertas:", error);
+        setAlerts([]);
+        setAttackStats({ dailyCounts: {}, severityCounts: {} });
+      }
+    };
+
+    fetchAlerts();
+  }, []);
 
   return (
     <Box m="20px">
@@ -25,7 +73,7 @@ const Dashboard = () => {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
-              ml: 2, 
+              ml: 2,
               ":hover": { backgroundColor: theme.palette.primary.dark },
             }}
           >
@@ -40,163 +88,100 @@ const Dashboard = () => {
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridAutoRows="140px"
-        gap="20px"        
+        gap="20px"
       >
+        {/* Gráfico de Linhas - Número de Ataques Detetados */}
         <Box
-          gridColumn="span 12"
+          gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={theme.palette.primary.main}
-          borderRadius='10px'
+          borderRadius="10px"
         >
           <Box
             mt="25px"
             p="0 30px"
-            display="flex "
+            display="flex"
             justifyContent="space-between"
             alignItems="center"
           >
-            <Box>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={theme.palette.text.primary}
-              >
-                Número de Acessos
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: theme.palette.text.primary }}
-                />
-              </IconButton>
-            </Box>
+            <Typography
+              variant="h3"
+              fontWeight="bold"
+              color={theme.palette.text.primary}
+            >
+              Número de Ataques Detetados
+            </Typography>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            <LineChart data={attackStats.dailyCounts} />
           </Box>
         </Box>
-        
-          {/* SysState Values */}
-          <Box
-            gridColumn="span 4"
-            gridRow="span 2"
-            backgroundColor={theme.palette.primary.main}
-            overflow="auto"
-            borderRadius='10px'
-          >
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`4px solid ${theme.palette.divider}`}
-              colors={theme.palette.text.secondary}
-              p="15px"
-            >
-              <Typography
-                color={theme.palette.text.primary}
-                variant="h5"
-                fontWeight="600"
-              >
-                Estado do Sistema
-              </Typography>
-            </Box>
 
-            {/* SysStatus Values */}
-            {[
-              {
-                status: "Base de Dados",
-                icon: <CircleIcon sx={{ color: "#F04437", fontSize: 20 }} />,
-              },
-              {
-                status: "Servidor",
-                icon: <CircleIcon sx={{ color: "#08FA00", fontSize: 20 }} />,
-              },
-              {
-                status: "Sistema",
-                icon: <CircleIcon sx={{ color: "#F6D606", fontSize: 20 }} />,
-              },
-            ].map((item, index) => (
-              <Box
-                key={index}
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                borderBottom={`4px solid ${theme.palette.divider}`}
-                p="15px"                
-              >
-                <Box>{item.icon}</Box>
-
-                <Typography
-                  color={theme.palette.text.primary}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {item.status}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        
-
-        {/* Alerts */}
+        {/* Gráfico de Pizza - Distribuição por Severidade */}
         <Box
-            gridColumn="span 4"
-            gridRow="span 2"
-            backgroundColor={theme.palette.primary.main}
-            overflow="auto"
-            borderRadius='10px'
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={theme.palette.primary.main}
+          borderRadius="10px"
+        >
+          <Box
+            mt="25px"
+            p="0 30px"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
           >
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`4px solid ${theme.palette.divider}`}
-              colors={theme.palette.text.secondary}
-              p="15px"
+            <Typography
+              variant="h3"
+              fontWeight="bold"
+              color={theme.palette.text.primary}
             >
-              <Typography
-                color={theme.palette.text.primary}
-                variant="h5"
-                fontWeight="600"
-              >
-              Alertas Recentes
+              Severidade dos Ataques
+            </Typography>
+          </Box>
+          <Box height="250px" m="-20px 0 0 0">
+            <PieChart data={attackStats.severityCounts} />
+          </Box>
+        </Box>
+
+        {/* SysState Values */}
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={theme.palette.primary.main}
+          overflow="auto"
+          borderRadius="10px"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${theme.palette.divider}`}
+            colors={theme.palette.text.secondary}
+            p="15px"
+          >
+            <Typography
+              color={theme.palette.text.primary}
+              variant="h5"
+              fontWeight="600"
+            >
+              Estado do Sistema
             </Typography>
           </Box>
 
-          {/* Alert Values */}
+          {/* SysStatus Values */}
           {[
             {
-              status: "Detetada Anomalia na Máquina 192.168.23.124 ",
-              icon: (
-                <ReportProblemRoundedIcon
-                  sx={{ color: "#F04437", fontSize: 40 }}
-                />
-              ),
+              status: "Base de Dados",
+              icon: <CircleIcon sx={{ color: "#F04437", fontSize: 20 }} />,
             },
             {
-              status: "Falha na Criação do Relatório de Acessos",
-              icon: (
-                <ReportProblemRoundedIcon
-                  sx={{ color: "#F6D606", fontSize: 40 }}
-                />
-              ),
+              status: "Servidor",
+              icon: <CircleIcon sx={{ color: "#08FA00", fontSize: 20 }} />,
             },
             {
-              status: "Sistema Atualizado para a Versão 'v.1.5.2'",
-              icon: (
-                <ReportProblemRoundedIcon
-                  sx={{ color: "#CECECE", fontSize: 40 }}
-                />
-              ),
-            },
-            {
-              status: "Sistema Atualizado para a Versão 'v.1.5.1'",
-              icon: (
-                <ReportProblemRoundedIcon
-                  sx={{ color: "#CECECE", fontSize: 40 }}
-                />
-              ),
+              status: "Sistema",
+              icon: <CircleIcon sx={{ color: "#F6D606", fontSize: 20 }} />,
             },
           ].map((item, index) => (
             <Box
@@ -205,7 +190,7 @@ const Dashboard = () => {
               justifyContent="space-between"
               alignItems="center"
               borderBottom={`4px solid ${theme.palette.divider}`}
-              p="15px"                
+              p="15px"
             >
               <Box>{item.icon}</Box>
 
@@ -213,12 +198,83 @@ const Dashboard = () => {
                 color={theme.palette.text.primary}
                 variant="h5"
                 fontWeight="600"
-                ml="10px"                
               >
                 {item.status}
               </Typography>
             </Box>
           ))}
+        </Box>
+
+        {/* Alerts */}
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={theme.palette.primary.main}
+          overflow="auto"
+          borderRadius="10px"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${theme.palette.divider}`}
+            p="15px"
+          >
+            <Typography
+              color={theme.palette.text.primary}
+              variant="h5"
+              fontWeight="600"
+            >
+              Alertas Recentes
+            </Typography>
+          </Box>
+
+          {/* Alert Values dinâmicos */}
+          {Array.isArray(alerts) && alerts.length > 0 ? (
+            alerts.map((alert, index) => (
+              <Box
+                key={index}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                borderBottom={`4px solid ${theme.palette.divider}`}
+                p="15px"
+              >
+                <Box>
+                  <ReportProblemRoundedIcon
+                    sx={{
+                      color:
+                        alert.severity === "High"
+                          ? "#F04437"
+                          : alert.severity === "Medium"
+                          ? "#F6D606"
+                          : "#CECECE",
+                      fontSize: 40,
+                    }}
+                  />
+                </Box>
+
+                <Typography
+                  color={theme.palette.text.primary}
+                  variant="h5"
+                  fontWeight="600"
+                  ml="10px"
+                >
+                  {alert.message || "Alerta sem mensagem"}
+                </Typography>
+              </Box>
+            ))
+          ) : (
+            <Box p="15px">
+              <Typography
+                color={theme.palette.text.secondary}
+                variant="h6"
+                fontWeight="400"
+              >
+                Sem alertas recentes.
+              </Typography>
+            </Box>
+          )}
         </Box>
 
         {/* ActiveUsrs */}
@@ -227,7 +283,7 @@ const Dashboard = () => {
           gridRow="span 2"
           backgroundColor={theme.palette.primary.main}
           overflow="auto"
-          borderRadius='10px'
+          borderRadius="10px"
         >
           <Box
             display="flex"
@@ -237,7 +293,11 @@ const Dashboard = () => {
             colors={theme.palette.divider}
             p="15px"
           >
-            <Typography color={theme.palette.text.primary} variant="h5" fontWeight="600">
+            <Typography
+              color={theme.palette.text.primary}
+              variant="h5"
+              fontWeight="600"
+            >
               Utilizadores Ativos
             </Typography>
           </Box>
@@ -288,42 +348,6 @@ const Dashboard = () => {
               </Typography>
             </Box>
           ))}
-        </Box>
-
-        <Box
-          gridColumn="span 12"
-          gridRow="span 2"
-          backgroundColor={theme.palette.primary.main}
-          mb="10px"
-          borderRadius='10px'
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={theme.palette.text.primary}
-              >
-                Número de Acessos
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: theme.palette.text.primary }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
-          </Box>
         </Box>
       </Box>
     </Box>

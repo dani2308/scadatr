@@ -1,8 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Query
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from datetime import datetime
+from typing import Optional
+
 
 from app import schemas, models, auth
 from app.database import engine, get_db
@@ -90,8 +93,30 @@ def create_log(log: schemas.LogCreate, db: Session = Depends(get_db), current_us
 
 # ---------------------- ALERTAS ----------------------
 @app.get("/alerts", response_model=list[schemas.AlertResponse])
-def get_alerts(db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
-    return db.query(models.Alert).all()
+def get_alerts(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(auth.get_current_user),
+    start_date: Optional[datetime] = Query(None),
+    end_date: Optional[datetime] = Query(None),
+    severity: Optional[str] = Query(None),
+    skip: int = 0,
+    limit: int = 100
+):
+    query = db.query(models.Alert)
+
+    # Filtrar pelo utilizador
+    query = query.filter(models.Alert.user_id == current_user.id)
+
+    # Filtros opcionais
+    if start_date:
+        query = query.filter(models.Alert.timestamp >= start_date)
+    if end_date:
+        query = query.filter(models.Alert.timestamp <= end_date)
+    if severity:
+        query = query.filter(models.Alert.severity == severity)
+
+    alerts = query.order_by(models.Alert.timestamp.desc()).offset(skip).limit(limit).all()
+    return alerts
 
 @app.post("/alerts", response_model=schemas.AlertResponse)
 def create_alert(alert: schemas.AlertCreate, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
@@ -105,6 +130,21 @@ def create_alert(alert: schemas.AlertCreate, db: Session = Depends(get_db), curr
     db.commit()
     db.refresh(db_alert)
     return db_alert
+
+@app.get("/alerts/stats")
+def get_alerts_stats(db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    results = (
+        db.query(
+            func.date(models.Alert.timestamp).label("date"),
+            func.count().label("count")
+        )
+        .filter(models.Alert.user_id == current_user.id)  # Importantíssimo! Só os alertas do user
+        .group_by(func.date(models.Alert.timestamp))
+        .order_by(func.date(models.Alert.timestamp))
+        .all()
+    )
+    return [{"date": str(r.date), "count": r.count} for r in results]
+
 
 # ---------------------- PREDIÇÃO ML ----------------------
 @app.post("/predict", response_model=schemas.PredictionResponse)

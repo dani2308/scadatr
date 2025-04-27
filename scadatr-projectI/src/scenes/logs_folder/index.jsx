@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, TextField, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import axios from "axios";
+import { green } from "@mui/material/colors";
 
 const LogsPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [logs, setLogs] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredLogs, setFilteredLogs] = useState([]);
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -35,6 +38,7 @@ const LogsPage = () => {
         }));
 
         setLogs(dadosFormatados);
+        setFilteredLogs(dadosFormatados);
         console.log("✅ Logs recebidos:", dadosFormatados);
       } catch (error) {
         console.error("❌ Erro ao buscar logs:", error);
@@ -43,6 +47,18 @@ const LogsPage = () => {
 
     fetchLogs();
   }, []);
+
+  const handleSearch = (event) => {
+    const value = event.target.value.toLowerCase();
+    setSearchText(value);
+
+    const filtered = logs.filter((log) =>
+      Object.values(log).some((field) =>
+        String(field).toLowerCase().includes(value)
+      )
+    );
+    setFilteredLogs(filtered);
+  };
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -72,6 +88,34 @@ const LogsPage = () => {
   return (
     <Box m="20px">
       <Header title="LOGS" subtitle="Registos de tráfego analisado" />
+
+      {/* Campo de Pesquisa */}
+      <Box mb={2}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Pesquisar nos Logs"
+          value={searchText}
+          onChange={handleSearch}
+          sx={{
+            input: { color: colors.grey[100] },
+            label: { color: colors.grey[300] },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: colors.primary[500],
+              },
+              "&:hover fieldset": {
+                borderColor: colors.primary[400],
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: green,
+              },
+            },
+          }}
+        />
+      </Box>
+
+      {/* Tabela de Logs */}
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -104,7 +148,7 @@ const LogsPage = () => {
         }}
       >
         <DataGrid
-          rows={logs}
+          rows={filteredLogs}
           columns={columns}
           getRowId={(row) => row.id}
           autoPageSize
