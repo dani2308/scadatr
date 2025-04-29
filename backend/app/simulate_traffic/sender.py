@@ -3,20 +3,25 @@ import requests
 import json
 from app.simulate_traffic.config import API_URL
 
-def enviar_log(log, token):
+def enviar_log(log, token, verbose=True):
     headers = {"Authorization": f"Bearer {token}"}
     try:
         response = requests.post(API_URL, json=log, headers=headers)
         if response.status_code == 200:
-            print("✅ Log enviado com sucesso:", response.json())
+            if verbose:
+                print("✅ Log enviado com sucesso:", response.json())
             return True
         else:
-            print("⚠️ Erro ao enviar log:", response.status_code, response.text)
+            print(f"⚠️ Erro ao enviar log [{response.status_code}]: {response.text}")
             return False
-    except Exception as e:
-        print("❌ Erro de conexão:", e)
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Erro de conexão: {type(e).__name__} - {e}")
         return False
 
 def guardar_log_ficheiro(log, caminho="logs_simulados.jsonl"):
-    with open(caminho, "a") as f:
-        f.write(json.dumps(log) + "\n")
+    """Guarda o log no ficheiro especificado em formato JSONL."""
+    try:
+        with open(caminho, "a") as f:
+            f.write(json.dumps(log) + "\n")
+    except Exception as e:
+        print(f"❌ Erro ao guardar log no ficheiro: {type(e).__name__} - {e}")

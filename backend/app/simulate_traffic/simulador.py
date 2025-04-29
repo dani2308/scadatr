@@ -1,4 +1,5 @@
 import random
+import time
 import pandas as pd
 from app.simulate_traffic.config import FEATURE_COLUMNS, CSV_CAMINHO
 
@@ -10,6 +11,7 @@ INTEGER_COLUMNS = [
 ]
 
 def gerar_log_simulado():
+    """Gera um log completamente aleatório (não baseado em dataset)."""
     log = {}
     for col in FEATURE_COLUMNS:
         if col in INTEGER_COLUMNS:
@@ -25,14 +27,20 @@ def gerar_log_simulado():
     return log
 
 def _preparar_dataset():
-    df = pd.read_csv(CSV_CAMINHO)
-    df.columns = [col.replace(" ", "_").replace("/", "_") for col in df.columns]
-    df = df.dropna()
-    if 'Attack_Type' not in df.columns:
-        raise ValueError("Coluna 'Attack_Type' não encontrada no CSV.")
-    return df
+    """Carrega e prepara o dataset, corrigindo nomes e removendo nulos."""
+    try:
+        df = pd.read_csv(CSV_CAMINHO)
+        df.columns = [col.replace(" ", "_").replace("/", "_") for col in df.columns]
+        df = df.dropna()
+        if 'Attack_Type' not in df.columns:
+            raise ValueError("Coluna 'Attack_Type' não encontrada no CSV.")
+        return df
+    except Exception as e:
+        print(f"❌ Erro ao preparar dataset: {e.__class__.__name__} - {e}")
+        raise
 
 def gerar_log_de_dataset(limite=None):
+    """Gera logs diretamente do dataset, sem distinção de tipo."""
     try:
         df = _preparar_dataset()
         df = df[FEATURE_COLUMNS]
@@ -45,16 +53,13 @@ def gerar_log_de_dataset(limite=None):
                     log[col] = int(round(log[col]))
             yield log
     except Exception as e:
-        print("❌ Erro ao carregar logs do CSV:", e)
+        print(f"❌ Erro ao carregar logs do CSV: {e.__class__.__name__} - {e}")
 
 def gerar_logs_mistos(n_ataques=5, n_normais=20):
+    """Gera logs mistos (ataques e tráfego normal) do dataset."""
     try:
         df = _preparar_dataset()
 
-        if 'Attack_Type' not in df.columns:
-            raise ValueError("Coluna 'Attack_Type' não encontrada no CSV.")
-
-        # Atualizado para bater certo com o teu CSV
         ataques_df = df[df['Attack_Type'] != 'Normal Traffic']
         normais_df = df[df['Attack_Type'] == 'Normal Traffic']
 
@@ -79,5 +84,11 @@ def gerar_logs_mistos(n_ataques=5, n_normais=20):
             yield log
 
     except Exception as e:
-        print("❌ Erro ao gerar logs mistos:", e)
+        print(f"❌ Erro ao gerar logs mistos: {e.__class__.__name__} - {e}")
 
+def gerar_logs_continuos_mistos(n_ataques=2, n_normais=10, intervalo=1.0):
+    """Gera logs mistos continuamente com intervalo (ideal para demonstrações)."""
+    while True:
+        for log in gerar_logs_mistos(n_ataques, n_normais):
+            yield log
+            time.sleep(intervalo)
