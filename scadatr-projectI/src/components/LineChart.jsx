@@ -2,7 +2,9 @@ import { Box, Typography } from "@mui/material";
 import { ResponsiveLine } from "@nivo/line";
 
 const LineChart = ({ data }) => {
-  if (!data || data.length === 0) {
+  const isValidArray = Array.isArray(data) && data.length > 0;
+
+  if (!isValidArray) {
     return (
       <Box
         height="100%"
@@ -18,18 +20,20 @@ const LineChart = ({ data }) => {
     );
   }
 
+  const chartData = [
+    {
+      id: "Ataques",
+      color: "hsl(210, 70%, 50%)",
+      data: data.map((item) => ({
+        x: item.date,
+        y: item.count,
+      })),
+    },
+  ];
+
   return (
     <ResponsiveLine
-      data={[
-        {
-          id: "Ataques",
-          color: "hsl(210, 70%, 50%)",
-          data: data.map((item) => ({
-            x: item.date,
-            y: item.count,
-          })),
-        },
-      ]}
+      data={chartData}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
