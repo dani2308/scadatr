@@ -1,7 +1,7 @@
 # app/simulate_traffic/sender.py
 import requests
 import json
-from app.simulate_traffic.config import API_URL
+from backend.app.simulate_traffic.config import API_URL
 
 def enviar_log(log, token, verbose=True):
     headers = {"Authorization": f"Bearer {token}"}

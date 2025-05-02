@@ -1,6 +1,6 @@
 # app/simulate_traffic/auth.py
 import requests
-from app.simulate_traffic.config import LOGIN_URL
+from backend.app.simulate_traffic.config import LOGIN_URL
 
 def obter_token_jwt(email, password):
     try:

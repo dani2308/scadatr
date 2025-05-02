@@ -1,7 +1,7 @@
 import random
 import time
 import pandas as pd
-from app.simulate_traffic.config import FEATURE_COLUMNS, CSV_CAMINHO
+from backend.app.simulate_traffic.config import FEATURE_COLUMNS, CSV_CAMINHO
 
 # Lista de features que DEVEM ser inteiros
 INTEGER_COLUMNS = [

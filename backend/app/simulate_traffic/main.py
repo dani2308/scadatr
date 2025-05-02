@@ -3,14 +3,14 @@ import argparse
 import time
 from datetime import datetime
 
-from app.simulate_traffic.auth import obter_token_jwt
-from app.simulate_traffic.config import EMAIL, PASSWORD, INTERVALO_SEGUNDOS
-from app.simulate_traffic.simulador import (
+from backend.app.simulate_traffic.auth import obter_token_jwt
+from backend.app.simulate_traffic.config import EMAIL, PASSWORD, INTERVALO_SEGUNDOS
+from backend.app.simulate_traffic.simulador import (
     gerar_log_simulado,
     gerar_log_de_dataset,
     gerar_logs_mistos,
 )
-from app.simulate_traffic.sender import enviar_log, guardar_log_ficheiro
+from backend.app.simulate_traffic.sender import enviar_log, guardar_log_ficheiro
 
 
 def simular_trafego_aleatorio(token: str, intervalo: int):
