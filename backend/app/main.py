@@ -149,18 +149,16 @@ def get_alerts_stats(db: Session = Depends(get_db), current_user: models.User = 
 # ---------------------- PREDIÇÃO ML ----------------------
 @app.post("/predict", response_model=schemas.PredictionResponse)
 def predict_and_alert(log_data: schemas.PredictionInput, db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
-    # Converte o Pydantic model para dict
     features_dict = log_data.dict()
 
     # Faz a predição
     prediction = predict_traffic(features_dict)
 
-    # Guarda o log (adaptar se necessário, aqui está só a base)
     db_log = models.Log(
         timestamp=datetime.utcnow(),
-        source_ip="0.0.0.0",  # Se quiseres adicionar estes campos ao PredictionInput, faz sentido
-        destination_ip="0.0.0.0",
-        protocol="UNKNOWN",
+        source_ip=log_data.source_ip,
+        destination_ip=log_data.destination_ip,
+        protocol=log_data.protocol,
         packet_size=int(features_dict.get("Total_Length_of_Fwd_Packets", 0)),
         prediction=prediction,
         user_id=current_user.id

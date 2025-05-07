@@ -1,6 +1,13 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, root_validator
 from datetime import datetime
 from typing import Optional
+import random
+
+def gerar_ip():
+    return ".".join(str(random.randint(0, 255)) for _ in range(4))
+
+def gerar_protocolo():
+    return random.choice(["TCP", "UDP", "ICMP", "IGMP"])
 
 # --- Token ---
 class Token(BaseModel):
@@ -105,6 +112,19 @@ class PredictionInput(BaseModel):
     Idle_Mean: float
     Idle_Max: float
     Idle_Min: float
+    source_ip: Optional[str]
+    destination_ip: Optional[str]
+    protocol: Optional[str]
+
+    @root_validator(pre=True)
+    def fill_defaults(cls, values):
+        if 'source_ip' not in values or values['source_ip'] is None:
+            values['source_ip'] = gerar_ip()
+        if 'destination_ip' not in values or values['destination_ip'] is None:
+            values['destination_ip'] = gerar_ip()
+        if 'protocol' not in values or values['protocol'] is None:
+            values['protocol'] = gerar_protocolo()
+        return values
 
 class PredictionResponse(BaseModel):
     prediction: str

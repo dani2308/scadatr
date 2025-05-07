@@ -10,6 +10,7 @@ INTEGER_COLUMNS = [
     "min_seg_size_forward", "FIN_Flag_Count", "PSH_Flag_Count", "ACK_Flag_Count"
 ]
 
+
 def gerar_log_simulado():
     """Gera um log completamente aleatório (não baseado em dataset)."""
     log = {}
@@ -88,9 +89,22 @@ def gerar_logs_mistos(n_ataques=5, n_normais=20):
 
 def gerar_logs_continuos_mistos(n_ataques=2, n_normais=10, intervalo=1.0):
     """Gera logs mistos continuamente com intervalo (ideal para demonstrações)."""
+
+    def gerar_ip():
+        return ".".join(str(random.randint(1, 254)) for _ in range(4))
+
+    def gerar_protocolo():
+        return random.choice(["TCP", "UDP", "ICMP", "HTTP", "HTTPS"])
+
     while True:
         for log in gerar_logs_mistos(n_ataques, n_normais):
+            # Adicionar campos extra ao log
+            log["source_ip"] = gerar_ip()
+            log["destination_ip"] = gerar_ip()
+            log["protocol"] = gerar_protocolo()
+
             yield log
-            time.sleep(intervalo)
+
+        time.sleep(intervalo)
 
 # python -m backend.app.simulate_traffic.main --modo demo --intervalo 2
