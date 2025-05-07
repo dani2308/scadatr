@@ -1,7 +1,8 @@
 import { ResponsivePie } from "@nivo/pie";
 
 const PieChart = ({ data }) => {
-  if (!data || Object.keys(data).length === 0) {
+  const total = Object.values(data).reduce((sum, count) => sum + count, 0);
+  if (!data || total === 0) {
     return <div>Sem dados suficientes para o gráfico de severidade.</div>;
   }
 

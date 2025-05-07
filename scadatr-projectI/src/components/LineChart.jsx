@@ -2,9 +2,10 @@ import { Box, Typography } from "@mui/material";
 import { ResponsiveLine } from "@nivo/line";
 
 const LineChart = ({ data }) => {
-  const isValidArray = Array.isArray(data) && data.length > 0;
+  const isValidObject =
+    data && typeof data === "object" && Object.keys(data).length > 0;
 
-  if (!isValidArray) {
+  if (!isValidObject) {
     return (
       <Box
         height="100%"
@@ -24,9 +25,9 @@ const LineChart = ({ data }) => {
     {
       id: "Ataques",
       color: "hsl(210, 70%, 50%)",
-      data: data.map((item) => ({
-        x: item.date,
-        y: item.count,
+      data: Object.entries(data).map(([date, count]) => ({
+        x: date,
+        y: count,
       })),
     },
   ];

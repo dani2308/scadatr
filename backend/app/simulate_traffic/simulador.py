@@ -92,3 +92,5 @@ def gerar_logs_continuos_mistos(n_ataques=2, n_normais=10, intervalo=1.0):
         for log in gerar_logs_mistos(n_ataques, n_normais):
             yield log
             time.sleep(intervalo)
+
+# python -m backend.app.simulate_traffic.main --modo demo --intervalo 2

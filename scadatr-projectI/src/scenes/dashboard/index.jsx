@@ -30,6 +30,8 @@ const Dashboard = () => {
           },
         });
 
+        console.log("Resposta da API /alerts:", response.data);
+
         const fetchedAlerts = Array.isArray(response.data) ? response.data : [];
 
         // Prepara dados para os gráficos
@@ -113,7 +115,14 @@ const Dashboard = () => {
             </Typography>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart data={attackStats.dailyCounts} />
+            <LineChart
+              data={Object.entries(attackStats.dailyCounts).map(
+                ([date, count]) => ({
+                  date,
+                  count,
+                })
+              )}
+            />
           </Box>
         </Box>
 
