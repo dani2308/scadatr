@@ -69,6 +69,12 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
+@app.get("/me", response_model=schemas.UserResponse)
+def read_current_user(
+    current_user: models.User = Depends(auth.get_current_user)
+):
+    return current_user
+
 # ---------------------- LOGS ----------------------
 @app.get("/logs", response_model=list[schemas.LogResponse])
 def get_logs(db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):

@@ -11,6 +11,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import PeopleIcon from "@mui/icons-material/People";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { useUser } from "../../scenes/global/useUser";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -36,6 +37,7 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const user = useUser();
 
   return (
     <Box
@@ -51,14 +53,14 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          backgroundColor: `${colors.primary[600]} !important`, 
+          backgroundColor: `${colors.primary[600]} !important`,
           color: `${theme.palette.text.primary} !important`,
           borderRadius: "10px",
           transition: "background-color 0.3s ease",
           mr: "10px",
         },
         "& .pro-menu-item.active": {
-          backgroundColor: `${colors.primary[700]} !important`, 
+          backgroundColor: `${colors.primary[700]} !important`,
           color: `${theme.palette.text.primary} !important`,
           borderRadius: "10px",
           mr: "10px",
@@ -100,18 +102,23 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="80px"
                   height="80px"
-                  src={`../../assets/user.png`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                  src={`../../assets/scadatr_logo_img.png`}
+                  style={{
+                    cursor: "pointer",
+                    borderRadius: "50%",
+                    border: "2px solid",
+                    borderColor: "#ffffff",
+                  }}
                 />
               </Box>
               <Box textAlign="center">
                 <Typography
-                  variant="h3"
+                  variant="h4"
                   color={theme.palette.text.primary}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  S_Rogerio98
+                  {user ? user.email : "A carregar..."}
                 </Typography>
                 <Typography variant="h5" color={theme.palette.text.primary}>
                   Administrador
@@ -171,8 +178,7 @@ const Sidebar = () => {
               variant="h6"
               color={theme.palette.text.primary}
               sx={{ m: "25px 0 5px 20px" }}
-            >
-            </Typography>
+            ></Typography>
           </Box>
         </Menu>
       </ProSidebar>
