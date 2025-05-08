@@ -1,12 +1,26 @@
 import { ResponsivePie } from "@nivo/pie";
+import { Box, Typography } from "@mui/material";
 
 const PieChart = ({ data }) => {
   const total = Object.values(data).reduce((sum, count) => sum + count, 0);
-  if (!data || total === 0) {
-    return <div>Sem dados suficientes para o gráfico de severidade.</div>;
+  const isValid = data && total > 0;
+
+  if (!isValid) {
+    return (
+      <Box
+        height="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        p="20px"
+      >
+        <Typography variant="h5" color="textSecondary">
+          Sem dados suficientes para o gráfico de severidade
+        </Typography>
+      </Box>
+    );
   }
 
-  // Formatar o objeto {data} para o formato de pie chart
   const formattedData = Object.entries(data).map(([severity, count]) => ({
     id: severity,
     label: severity,
