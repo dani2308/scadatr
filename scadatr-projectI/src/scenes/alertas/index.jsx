@@ -66,7 +66,7 @@ const Alerts = () => {
 
   const getSeverityColor = (severity) => {
     switch (severity) {
-      case "Crítico":
+      case "High":
         return "#d32f2f"; // Vermelho forte
       case "Alto":
         return "#f57c00"; // Laranja forte
@@ -117,13 +117,20 @@ const Alerts = () => {
       flex: 0.6,
       minWidth: 100,
       headerClassName: "custom-header",
-      renderCell: (params) => (
-        <Chip
-          label={params.value === "resolved" ? "Resolvido" : "Pendente"}
-          color={params.value === "resolved" ? "success" : "warning"}
-          size="small"
-        />
-      ),
+      renderCell: (params) => {
+        const isResolved = params.value === "resolved";
+        return (
+          <Chip
+            label={isResolved ? "Resolvido" : "Pendente"}
+            size="small"
+            style={{
+              backgroundColor: isResolved ? "#4caf50" : "#ff9800",
+              color: "#fff",
+              fontWeight: "bold",
+            }}
+          />
+        );
+      },
     },
   ];
 
@@ -165,12 +172,18 @@ const Alerts = () => {
         m="40px 0 0 0"
         height="75vh"
         sx={{
-          "& .MuiDataGrid-root": { border: "none" },
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.accent[700],
-            color: "#FFFFFF",
+            color: colors.grey[100],
             fontWeight: "bold",
             fontSize: "16px",
+          },
+          "& .custom-header": {
+            backgroundColor: `${theme.palette.primary.main} !important`,
+            color: "#FFFFFF !important",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: `1px solid ${colors.primary[600]}`,
@@ -189,6 +202,9 @@ const Alerts = () => {
             borderTop: `2px solid ${colors.primary[600]}`,
             backgroundColor: colors.primary[700],
             color: colors.grey[100],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.grey[100]} !important`,
           },
         }}
       >

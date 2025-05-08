@@ -61,16 +61,47 @@ const LogsPage = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "timestamp", headerName: "Data/Hora", flex: 1 },
-    { field: "source_ip", headerName: "IP Origem", flex: 1 },
-    { field: "destination_ip", headerName: "IP Destino", flex: 1 },
-    { field: "protocol", headerName: "Protocolo", flex: 1 },
-    { field: "packet_size", headerName: "Tamanho Pacote", flex: 1 },
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 0.5,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "timestamp",
+      headerName: "Data/Hora",
+      flex: 1,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "source_ip",
+      headerName: "IP Origem",
+      flex: 1,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "destination_ip",
+      headerName: "IP Destino",
+      flex: 1,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "protocol",
+      headerName: "Protocolo",
+      flex: 1,
+      headerClassName: "custom-header",
+    },
+    {
+      field: "packet_size",
+      headerName: "Tamanho Pacote",
+      flex: 1,
+      headerClassName: "custom-header",
+    },
     {
       field: "prediction",
       headerName: "Predição",
       flex: 1,
+      headerClassName: "custom-header",
       renderCell: (params) => (
         <strong
           style={{
@@ -82,7 +113,12 @@ const LogsPage = () => {
         </strong>
       ),
     },
-    { field: "user_id", headerName: "ID Utilizador", flex: 1 },
+    {
+      field: "user_id",
+      headerName: "ID Utilizador",
+      flex: 1,
+      headerClassName: "custom-header",
+    },
   ];
 
   return (
@@ -120,10 +156,19 @@ const LogsPage = () => {
         m="40px 0 0 0"
         height="75vh"
         sx={{
-          "& .MuiDataGrid-root": { border: "none" },
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: theme.palette.primary.main,
-            color: "#FFFFFF",
+            backgroundColor: `${colors.primary[700]} !important`,
+          },
+          "& .custom-header": {
+            backgroundColor: `${theme.palette.primary.main} !important`,
+            color: "#FFFFFF !important",
+          },
+
+          "& .MuiDataGrid-columnHeaderTitle": {
+            color: `${colors.grey[100]} !important`,
             fontWeight: "bold",
             fontSize: "16px",
           },
@@ -144,6 +189,9 @@ const LogsPage = () => {
             borderTop: `2px solid ${colors.primary[600]}`,
             backgroundColor: colors.primary[700],
             color: colors.grey[100],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.grey[100]} !important`,
           },
         }}
       >

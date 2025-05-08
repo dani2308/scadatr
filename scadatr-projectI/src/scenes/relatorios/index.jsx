@@ -1,4 +1,11 @@
-import { Box, Typography, useTheme, Button, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme,
+  Button,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataReports } from "../../data/mockData";
@@ -6,29 +13,48 @@ import Header from "../../components/Header";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import { useState, useEffect } from "react";
+import { grey } from "@mui/material/colors";
 
 const Reports = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [searchText, setSearchText] = useState("");
+  const [filteredReports, setFilteredReports] = useState(mockDataReports);
+
+  useEffect(() => {
+    const filtered = mockDataReports.filter((report) =>
+      Object.values(report).some((field) =>
+        String(field).toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+    setFilteredReports(filtered);
+  }, [searchText]);
+
+  const handleSearch = (event) => {
+    setSearchText(event.target.value);
+  };
+
   const columns = [
     {
       field: "name",
       headerName: "Nome",
       flex: 1,
       cellClassName: "name-column--cell",
-      headerClassName: "custom-header"
+      headerClassName: "custom-header",
     },
     {
       field: "tipo",
       headerName: "Tipo",
       flex: 1,
-      headerClassName: "custom-header"
+      headerClassName: "custom-header",
     },
     {
       field: "creation_date",
       headerName: "Data de Criação",
       flex: 1,
-      headerClassName: "custom-header"
+      headerClassName: "custom-header",
     },
     {
       flex: 0,
@@ -65,7 +91,6 @@ const Reports = () => {
           title="RELATÓRIOS"
           subtitle="Tabela de Relatórios Criados pelo Sistema"
         />
-
         <Box>
           <Button
             sx={{
@@ -82,8 +107,33 @@ const Reports = () => {
         </Box>
       </Box>
 
+      {/* Barra de Pesquisa */}
+      <Box mb={2} mt={2}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Pesquisar Relatórios"
+          value={searchText}
+          onChange={handleSearch}
+          sx={{
+            input: { color: colors.grey[100] },
+            label: { color: colors.grey[300] },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: colors.primary[500],
+              },
+              "&:hover fieldset": {
+                borderColor: colors.primary[400],
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: grey,
+              },
+            },
+          }}
+        />
+      </Box>
+
       <Box
-        m="20px 0 0 0"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -122,7 +172,7 @@ const Reports = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataReports} columns={columns} />
+        <DataGrid rows={filteredReports} columns={columns} />
       </Box>
     </Box>
   );

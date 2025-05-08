@@ -1,4 +1,11 @@
-import { Box, Typography, useTheme, Button, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme,
+  Button,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataUsers } from "../../data/mockData";
@@ -6,10 +13,23 @@ import Header from "../../components/Header";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import { useState } from "react";
 
 const Users = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchText(e.target.value.toLowerCase());
+  };
+
+  const filteredRows = mockDataUsers.filter(
+    (row) =>
+      row.name.toLowerCase().includes(searchText) ||
+      row.email.toLowerCase().includes(searchText) ||
+      row.profile.toLowerCase().includes(searchText)
+  );
 
   const columns = [
     {
@@ -66,21 +86,43 @@ const Users = () => {
           title="UTILIZADORES"
           subtitle="Tabela de Utilizadores no Sistema"
         />
+        <Button
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.text.primary,
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+          }}
+        >
+          <AddCircleRoundedIcon sx={{ mr: "10px" }} />
+          Criar Utilizador
+        </Button>
+      </Box>
 
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.text.primary,
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <AddCircleRoundedIcon sx={{ mr: "10px" }} />
-            Criar Utilizador
-          </Button>
-        </Box>
+      <Box mt={2} mb={2}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Pesquisar Utilizadores"
+          value={searchText}
+          onChange={handleSearch}
+          sx={{
+            input: { color: colors.grey[100] },
+            label: { color: colors.grey[300] },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: colors.primary[500],
+              },
+              "&:hover fieldset": {
+                borderColor: colors.primary[400],
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: colors.primary[400],
+              },
+            },
+          }}
+        />
       </Box>
 
       <Box
@@ -123,7 +165,7 @@ const Users = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataUsers} columns={columns} />
+        <DataGrid rows={filteredRows} columns={columns} />
       </Box>
     </Box>
   );
