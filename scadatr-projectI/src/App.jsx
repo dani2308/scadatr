@@ -9,6 +9,7 @@ import Reports from "./scenes/relatorios";
 import Users from "./scenes/users";
 import ConfsPage from "./scenes/confs";
 import LoginForm from "./LoginForm/LoginForm";
+import AlertDetail from "./scenes/alertas/AlertDetail";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
@@ -53,6 +54,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Alerts />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/alertas/:id"
+                element={
+                  <PrivateRoute>
+                    <AlertDetail />
                   </PrivateRoute>
                 }
               />

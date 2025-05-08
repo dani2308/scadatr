@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import { green } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 const Alerts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
   const [alerts, setAlerts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredAlerts, setFilteredAlerts] = useState([]);
@@ -67,13 +69,13 @@ const Alerts = () => {
   const getSeverityColor = (severity) => {
     switch (severity) {
       case "High":
-        return "#d32f2f"; // Vermelho forte
+        return "#d32f2f";
       case "Alto":
-        return "#f57c00"; // Laranja forte
+        return "#f57c00";
       case "Médio":
-        return "#fbc02d"; // Amarelo forte
+        return "#fbc02d";
       case "Baixo":
-        return "#388e3c"; // Verde forte
+        return "#388e3c";
       default:
         return colors.grey[100];
     }
@@ -141,7 +143,6 @@ const Alerts = () => {
         subtitle="Tabela de Alertas Criados pelo Sistema"
       />
 
-      {/* Campo de Pesquisa */}
       <Box mb={2}>
         <TextField
           fullWidth
@@ -153,28 +154,19 @@ const Alerts = () => {
             input: { color: colors.grey[100] },
             label: { color: colors.grey[300] },
             "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: colors.primary[500],
-              },
-              "&:hover fieldset": {
-                borderColor: colors.primary[400],
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: green,
-              },
+              "& fieldset": { borderColor: colors.primary[500] },
+              "&:hover fieldset": { borderColor: colors.primary[400] },
+              "&.Mui-focused fieldset": { borderColor: green },
             },
           }}
         />
       </Box>
 
-      {/* Tabela de Alertas */}
       <Box
         m="40px 0 0 0"
         height="75vh"
         sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
+          "& .MuiDataGrid-root": { border: "none" },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.accent[700],
             color: colors.grey[100],
@@ -219,6 +211,7 @@ const Alerts = () => {
               sortModel: [{ field: "dateHour", sort: "desc" }],
             },
           }}
+          onRowClick={(params) => navigate(`/alertas/${params.row.id}`)}
         />
       </Box>
     </Box>
