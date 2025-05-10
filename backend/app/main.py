@@ -151,6 +151,15 @@ def get_alerts_stats(db: Session = Depends(get_db), current_user: models.User = 
     )
     return [{"date": str(r.date), "count": r.count} for r in results]
 
+@app.get("/alerts/severity")
+def get_alerts_by_severity(db: Session = Depends(get_db), current_user: models.User = Depends(auth.get_current_user)):
+    results = (
+        db.query(models.Alert.severity, func.count().label("count"))
+        .filter(models.Alert.user_id == current_user.id)
+        .group_by(models.Alert.severity)
+        .all()
+    )
+    return {severity: count for severity, count in results}
 
 # ---------------------- PREDIÇÃO ML ----------------------
 @app.post("/predict", response_model=schemas.PredictionResponse)

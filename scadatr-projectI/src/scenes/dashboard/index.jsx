@@ -30,20 +30,16 @@ const Dashboard = () => {
           },
         });
 
-        console.log("Resposta da API /alerts:", response.data);
-
         const fetchedAlerts = Array.isArray(response.data) ? response.data : [];
 
-        // Prepara dados para os gráficos
+        // Processamento dos dados
         const dailyCounts = {};
         const severityCounts = { High: 0, Medium: 0, Low: 0 };
 
         fetchedAlerts.forEach((alert) => {
-          // Contar por data
-          const date = new Date(alert.timestamp).toLocaleDateString(); // ou .toISOString().slice(0,10)
+          const date = new Date(alert.timestamp).toLocaleDateString();
           dailyCounts[date] = (dailyCounts[date] || 0) + 1;
 
-          // Contar por severidade
           if (alert.severity in severityCounts) {
             severityCounts[alert.severity]++;
           }
@@ -58,8 +54,19 @@ const Dashboard = () => {
       }
     };
 
+    // Chamada inicial
     fetchAlerts();
+
+    // Polling a cada 5 segundos
+    const intervalId = setInterval(fetchAlerts, 5000);
+
+    // Cleanup
+    return () => clearInterval(intervalId);
   }, []);
+
+  console.log("attackStats:", attackStats);
+  console.log("severityCounts:", attackStats?.severityCounts);
+  console.log("dailyCounts:", attackStats?.dailyCounts);
 
   return (
     <Box m="20px">
@@ -115,17 +122,9 @@ const Dashboard = () => {
             </Typography>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart
-              data={Object.entries(attackStats.dailyCounts).map(
-                ([date, count]) => ({
-                  date,
-                  count,
-                })
-              )}
-            />
+            <LineChart data={attackStats.dailyCounts} />
           </Box>
         </Box>
-
         {/* Gráfico de Pizza - Distribuição por Severidade */}
         <Box
           gridColumn="span 4"
@@ -182,7 +181,7 @@ const Dashboard = () => {
           {[
             {
               status: "Base de Dados",
-              icon: <CircleIcon sx={{ color: "#F04437", fontSize: 20 }} />,
+              icon: <CircleIcon sx={{ color: "#08FA00", fontSize: 20 }} />,
             },
             {
               status: "Servidor",
@@ -190,7 +189,7 @@ const Dashboard = () => {
             },
             {
               status: "Sistema",
-              icon: <CircleIcon sx={{ color: "#F6D606", fontSize: 20 }} />,
+              icon: <CircleIcon sx={{ color: "#08FA00", fontSize: 20 }} />,
             },
           ].map((item, index) => (
             <Box
@@ -213,7 +212,6 @@ const Dashboard = () => {
             </Box>
           ))}
         </Box>
-
         {/* Alerts */}
         <Box
           gridColumn="span 4"
@@ -285,7 +283,6 @@ const Dashboard = () => {
             </Box>
           )}
         </Box>
-
         {/* ActiveUsrs */}
         <Box
           gridColumn="span 4"
@@ -314,27 +311,27 @@ const Dashboard = () => {
           {/* ActiveUsrs Values */}
           {[
             {
-              status: "A_Andrade90",
+              status: "a_andrade@scadatr.com",
               icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
             },
             {
-              status: "B_Baltazar91",
+              status: "b_baltazar@scadatr.com",
               icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
             },
             {
-              status: "C_Candido92",
+              status: "c_candido@scadatr.com",
               icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
             },
             {
-              status: "D_Diospiro93",
+              status: "d_duarte@scadatr.com",
               icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
             },
             {
-              status: "E_Ermindo94",
+              status: "e_esteves@scadatr.com",
               icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
             },
             {
-              status: "F_Franguinho95",
+              status: "s_rogerio@scadatr.com",
               icon: <AccountCircleRoundedIcon sx={{ fontSize: 40 }} />,
             },
           ].map((item, index) => (

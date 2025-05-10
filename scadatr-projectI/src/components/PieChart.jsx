@@ -2,10 +2,35 @@ import { ResponsivePie } from "@nivo/pie";
 import { Box, Typography } from "@mui/material";
 
 const PieChart = ({ data }) => {
-  const total = Object.values(data).reduce((sum, count) => sum + count, 0);
-  const isValid = data && total > 0;
+  // Garante que temos sempre todas as categorias, mesmo que sejam 0
+  const normalizedData = {
+    High: data?.High ?? 0,
+    Medium: data?.Medium ?? 0,
+    Low: data?.Low ?? 0,
+  };
 
-  if (!isValid) {
+  const total = Object.values(normalizedData).reduce(
+    (sum, count) => sum + count,
+    0
+  );
+
+  const severityOrder = { High: 0, Medium: 1, Low: 2 };
+
+  const formattedData = Object.entries(normalizedData)
+    .sort(([a], [b]) => severityOrder[a] - severityOrder[b])
+    .map(([severity, count]) => ({
+      id: severity,
+      label: severity,
+      value: count,
+      color:
+        severity === "High"
+          ? "#FF4C4C"
+          : severity === "Medium"
+          ? "#FFC300"
+          : "#B0BEC5",
+    }));
+
+  if (total === 0) {
     return (
       <Box
         height="100%"
@@ -20,18 +45,6 @@ const PieChart = ({ data }) => {
       </Box>
     );
   }
-
-  const formattedData = Object.entries(data).map(([severity, count]) => ({
-    id: severity,
-    label: severity,
-    value: count,
-    color:
-      severity === "High"
-        ? "#FF4C4C"
-        : severity === "Medium"
-        ? "#FFC300"
-        : "#B0BEC5",
-  }));
 
   return (
     <ResponsivePie
@@ -50,6 +63,19 @@ const PieChart = ({ data }) => {
       arcLinkLabelsColor={{ from: "color" }}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
+      tooltip={({ datum }) => (
+        <div
+          style={{
+            background: "white",
+            padding: "6px 9px",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+          }}
+        >
+          <strong>{datum.label}</strong>: {datum.value} (
+          {((datum.value / total) * 100).toFixed(1)}%)
+        </div>
+      )}
     />
   );
 };

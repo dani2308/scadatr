@@ -25,10 +25,9 @@ const LineChart = ({ data }) => {
     {
       id: "Ataques",
       color: "hsl(210, 70%, 50%)",
-      data: Object.entries(data).map(([date, count]) => ({
-        x: date,
-        y: count,
-      })),
+      data: Object.entries(data)
+        .sort(([a], [b]) => new Date(a) - new Date(b))
+        .map(([date, count]) => ({ x: date, y: count })),
     },
   ];
 

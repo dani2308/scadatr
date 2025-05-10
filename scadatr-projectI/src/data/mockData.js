@@ -287,37 +287,37 @@ export const mockDataUsers = [
   {
     id: 1,
     name: "André Andrade",
-    email: "a_andrade@empresa.com",
+    email: "a_andrade@scadatr.com",
     profile: "Analista de Segurança",    
   },
   {
     id: 2,  
     name: "Berto Baltazar",
-    email: "b_baltazar@empresa.com",
+    email: "b_baltazar@scadatr.com",
     profile: "Analista de Segurança", 
   },
   {
     id: 3,
     name: "Carlos Cândido",
-    email: "c_candido@empresa.com",
+    email: "c_candido@scadatr.com",
     profile: "Comum", 
   },
   {
     id: 4,
     name: "Diana Duarte",
-    email: "d_duarte@empresa.com",
+    email: "d_duarte@scadatr.com",
     profile: "Comum",
   },
   {
     id: 5,
     name: "Eva Esteves",
-    email: "e_esteves@empresa.com",
+    email: "e_esteves@scadatr.com",
     profile: "Administrador",
   },
   {
     id: 6,
     name: "Simão Rogério",
-    email: "s_rogerio@empresa.com",
+    email: "s_rogerio@scadatr.com",
     profile: "Administrador",
   },
 ];
