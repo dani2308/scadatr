@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import { ResponsiveLine } from "@nivo/line";
+import { ResponsiveBar } from "@nivo/bar";
 
-const LineChart = ({ data }) => {
+const BarChart = ({ data }) => {
   const isValidObject =
     data && typeof data === "object" && Object.keys(data).length > 0;
 
@@ -14,63 +14,83 @@ const LineChart = ({ data }) => {
         alignItems="center"
         p="20px"
       >
-        <Typography variant="h5" color="textSecondary">
+        <Typography variant="h5" color="#fff">
           Sem dados suficientes para o gráfico de ataques
         </Typography>
       </Box>
     );
   }
 
-  const chartData = [
-    {
-      id: "Ataques",
-      color: "hsl(210, 70%, 50%)",
-      data: Object.entries(data)
-        .sort(([a], [b]) => new Date(a) - new Date(b))
-        .map(([date, count]) => ({ x: date, y: count })),
-    },
-  ];
+  const chartData = Object.entries(data)
+    .sort(([a], [b]) => new Date(a) - new Date(b))
+    .map(([date, count]) => ({ date, Ataques: count }));
 
   return (
-    <ResponsiveLine
+    <ResponsiveBar
       data={chartData}
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-      xScale={{ type: "point" }}
-      yScale={{
-        type: "linear",
-        min: 0,
-        max: "auto",
-        stacked: false,
-        reverse: false,
+      keys={["Ataques"]}
+      indexBy="date"
+      margin={{ top: 50, right: 30, bottom: 60, left: 60 }}
+      padding={0.3}
+      colors={(bar) => {
+        const y = bar.data["Ataques"];
+        if (y > 10) return "#ff4d4f"; // vermelho para muitos ataques
+        if (y > 5) return "#ffc107"; // amarelo para ataques médios
+        return "#4caf50"; // verde para poucos ataques
       }}
+      borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
       axisTop={null}
       axisRight={null}
+      valueScale={{ type: "linear", max: 50 }}
       axisBottom={{
-        orient: "bottom",
         tickSize: 5,
         tickPadding: 5,
-        tickRotation: 0,
+        tickRotation: -45,
         legend: "Dia",
-        legendOffset: 36,
         legendPosition: "middle",
+        legendOffset: 50,
+        tickValues: "every 1 day",
+        format: (value) => value,
+        tickTextColor: "#fff",
       }}
       axisLeft={{
-        orient: "left",
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: "Nº de Ataques",
-        legendOffset: -50,
         legendPosition: "middle",
+        legendOffset: -50,
+        tickTextColor: "#fff",
       }}
-      pointSize={10}
-      pointColor={{ theme: "background" }}
-      pointBorderWidth={2}
-      pointBorderColor={{ from: "serieColor" }}
-      pointLabelYOffset={-12}
-      useMesh={true}
+      theme={{
+        axis: {
+          ticks: {
+            text: {
+              fill: "#fff",
+              fontSize: 12,
+            },
+          },
+          legend: {
+            text: {
+              fill: "#fff",
+              fontSize: 14,
+            },
+          },
+        },
+        legends: {
+          text: {
+            fill: "#fff",
+          },
+        },
+      }}
+      labelSkipWidth={12}
+      labelSkipHeight={12}
+      labelTextColor="#fff"
+      animate={true}
+      role="application"
+      ariaLabel="Gráfico de barras de ataques por dia"
     />
   );
 };
 
-export default LineChart;
+export default BarChart;

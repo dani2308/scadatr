@@ -24,12 +24,12 @@ const Dashboard = () => {
     const fetchAlerts = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await axios.get("/alerts", {
+        const response = await axios.get("http://localhost:8000/alerts", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        console.log("Fetched alerts:", response.data);
         const fetchedAlerts = Array.isArray(response.data) ? response.data : [];
 
         // Processamento dos dados
@@ -267,7 +267,7 @@ const Dashboard = () => {
                   fontWeight="600"
                   ml="10px"
                 >
-                  {alert.message || "Alerta sem mensagem"}
+                  {alert.message || "Ataque Detetado"}
                 </Typography>
               </Box>
             ))
