@@ -58,7 +58,7 @@ const PieChart = ({ data }) => {
       borderWidth={1}
       borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
       arcLinkLabelsSkipAngle={10}
-      arcLinkLabelsTextColor="#333333"
+      arcLinkLabelsTextColor="#fff"
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ from: "color" }}
       arcLabelsSkipAngle={10}
@@ -76,6 +76,22 @@ const PieChart = ({ data }) => {
           {((datum.value / total) * 100).toFixed(1)}%)
         </div>
       )}
+      legends={[
+        {
+          anchor: "bottom",
+          direction: "row",
+          justify: false,
+          translateX: 0,
+          translateY: 56,
+          itemsSpacing: 10,
+          itemWidth: 100,
+          itemHeight: 18,
+          itemTextColor: "#fff",
+          itemDirection: "left-to-right",
+          symbolSize: 18,
+          symbolShape: "circle",
+        },
+      ]}
     />
   );
 };
