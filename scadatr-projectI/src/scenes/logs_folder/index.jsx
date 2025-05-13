@@ -18,9 +18,7 @@ const LogsPage = () => {
       try {
         const token = localStorage.getItem("accessToken");
         if (!token) {
-          console.error(
-            "Token JWT não encontrado. Utilizador não autenticado."
-          );
+          console.error("Token JWT não encontrado.");
           return;
         }
 
@@ -38,15 +36,32 @@ const LogsPage = () => {
         }));
 
         setLogs(dadosFormatados);
-        setFilteredLogs(dadosFormatados);
-        console.log("✅ Logs recebidos:", dadosFormatados);
+        setFilteredLogs((prevFiltered) => {
+          // Atualiza a pesquisa em tempo real se houver texto no campo
+          if (searchText) {
+            return dadosFormatados.filter((log) =>
+              Object.values(log).some((field) =>
+                String(field).toLowerCase().includes(searchText.toLowerCase())
+              )
+            );
+          } else {
+            return dadosFormatados;
+          }
+        });
       } catch (error) {
         console.error("❌ Erro ao buscar logs:", error);
       }
     };
 
+    // Chamada inicial
     fetchLogs();
-  }, []);
+
+    // Polling a cada 5 segundos (5000 ms)
+    const interval = setInterval(fetchLogs, 5000);
+
+    // Cleanup
+    return () => clearInterval(interval);
+  }, [searchText]);
 
   const handleSearch = (event) => {
     const value = event.target.value.toLowerCase();

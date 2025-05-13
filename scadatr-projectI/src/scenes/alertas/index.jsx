@@ -44,15 +44,32 @@ const Alerts = () => {
         }));
 
         setAlerts(formattedAlerts);
-        setFilteredAlerts(formattedAlerts);
-        console.log("✅ Alertas recebidos:", formattedAlerts);
+        setFilteredAlerts((prev) => {
+          // Mantém a pesquisa ativa mesmo com atualização
+          if (searchText.trim() === "") return formattedAlerts;
+
+          return formattedAlerts.filter((alert) =>
+            Object.values(alert).some((field) =>
+              String(field).toLowerCase().includes(searchText.toLowerCase())
+            )
+          );
+        });
+
+        console.log("✅ Alertas atualizados:", formattedAlerts);
       } catch (error) {
         console.error("❌ Erro ao buscar alertas:", error);
       }
     };
 
+    // Primeira chamada imediata
     fetchAlerts();
-  }, []);
+
+    // Repetição a cada 10 segundos
+    const interval = setInterval(fetchAlerts, 10000);
+
+    // Limpeza do intervalo ao desmontar o componente
+    return () => clearInterval(interval);
+  }, [searchText]);
 
   const handleSearch = (event) => {
     const value = event.target.value.toLowerCase();
