@@ -6,6 +6,9 @@ import axios from "axios";
 import Header from "../../components/Header";
 import { green } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
+import { useNotification } from "../../context/NotificationContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Alerts = () => {
   const theme = useTheme();
@@ -14,6 +17,7 @@ const Alerts = () => {
   const [alerts, setAlerts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredAlerts, setFilteredAlerts] = useState([]);
+  const { addNotification } = useNotification();
 
   useEffect(() => {
     const fetchAlerts = async () => {
@@ -43,9 +47,24 @@ const Alerts = () => {
           state: alert.state,
         }));
 
+        // 🔔 DETEÇÃO DE NOVOS ALERTAS
+        if (alerts.length > 0) {
+          const previousIds = new Set(alerts.map((a) => a.id));
+          const newAlerts = formattedAlerts.filter(
+            (a) => !previousIds.has(a.id)
+          );
+
+          newAlerts.forEach((alert) => {
+            addNotification(alert);
+            toast.warn(`🚨 Novo alerta: ${alert.title || alert.description}`, {
+              position: "top-right",
+              autoClose: 5000,
+            });
+          });
+        }
+
         setAlerts(formattedAlerts);
         setFilteredAlerts((prev) => {
-          // Mantém a pesquisa ativa mesmo com atualização
           if (searchText.trim() === "") return formattedAlerts;
 
           return formattedAlerts.filter((alert) =>
@@ -67,9 +86,8 @@ const Alerts = () => {
     // Repetição a cada 10 segundos
     const interval = setInterval(fetchAlerts, 10000);
 
-    // Limpeza do intervalo ao desmontar o componente
     return () => clearInterval(interval);
-  }, [searchText]);
+  }, [searchText, alerts]);
 
   const handleSearch = (event) => {
     const value = event.target.value.toLowerCase();

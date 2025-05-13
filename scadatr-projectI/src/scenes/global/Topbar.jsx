@@ -10,12 +10,15 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"; // 👈 novo ícone
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom"; // 👈 para redirecionar
+import Badge from "@mui/material/Badge";
+import { useNotification } from "../../context/NotificationContext";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const navigate = useNavigate();
+  const { unreadCount, clearNotifications } = useNotification();
 
   const handleLogout = () => {
     const confirmLogout = window.confirm(
@@ -50,9 +53,12 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
+        <IconButton onClick={clearNotifications}>
+          <Badge badgeContent={unreadCount} color="error">
+            <NotificationsOutlinedIcon />
+          </Badge>
         </IconButton>
+
         <IconButton>
           <PersonOutlinedIcon />
         </IconButton>
