@@ -47,7 +47,7 @@ const Alerts = () => {
           state: alert.state,
         }));
 
-        // 🔔 DETEÇÃO DE NOVOS ALERTAS
+        // DETEÇÃO DE NOVOS ALERTAS
         if (alerts.length > 0) {
           const previousIds = new Set(alerts.map((a) => a.id));
           const newAlerts = formattedAlerts.filter(
@@ -74,9 +74,9 @@ const Alerts = () => {
           );
         });
 
-        console.log("✅ Alertas atualizados:", formattedAlerts);
+        console.log("Alertas atualizados:", formattedAlerts);
       } catch (error) {
-        console.error("❌ Erro ao buscar alertas:", error);
+        console.error("Erro ao encontrar alertas:", error);
       }
     };
 

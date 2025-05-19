@@ -9,13 +9,13 @@ def enviar_log(log, token, verbose=True):
         response = requests.post(API_URL, json=log, headers=headers)
         if response.status_code == 200:
             if verbose:
-                print("✅ Log enviado com sucesso:", response.json())
+                print("Log enviado com sucesso:", response.json())
             return True
         else:
-            print(f"⚠️ Erro ao enviar log [{response.status_code}]: {response.text}")
+            print(f"Erro ao enviar log [{response.status_code}]: {response.text}")
             return False
     except requests.exceptions.RequestException as e:
-        print(f"❌ Erro de conexão: {type(e).__name__} - {e}")
+        print(f"Erro de conexão: {type(e).__name__} - {e}")
         return False
 
 def guardar_log_ficheiro(log, caminho="logs_simulados.jsonl"):
@@ -24,4 +24,4 @@ def guardar_log_ficheiro(log, caminho="logs_simulados.jsonl"):
         with open(caminho, "a") as f:
             f.write(json.dumps(log) + "\n")
     except Exception as e:
-        print(f"❌ Erro ao guardar log no ficheiro: {type(e).__name__} - {e}")
+        print(f"Erro ao guardar log no ficheiro: {type(e).__name__} - {e}")

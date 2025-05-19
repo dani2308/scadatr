@@ -35,7 +35,7 @@ app.add_middleware(
 # ---------------------- VERIFICAÇÃO ----------------------
 @app.get("/")
 def root():
-    return {"message": "Backend ativo! Vai a /docs para ver a API."}
+    return {"message": "Backend ativo! Ir a /docs para ver a API."}
 
 # ---------------------- LOGIN ----------------------
 @app.post("/login", response_model=schemas.Token)

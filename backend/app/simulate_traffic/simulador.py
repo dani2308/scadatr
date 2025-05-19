@@ -37,7 +37,7 @@ def _preparar_dataset():
             raise ValueError("Coluna 'Attack_Type' não encontrada no CSV.")
         return df
     except Exception as e:
-        print(f"❌ Erro ao preparar dataset: {e.__class__.__name__} - {e}")
+        print(f"Erro ao preparar dataset: {e.__class__.__name__} - {e}")
         raise
 
 def gerar_log_de_dataset(limite=None):
@@ -54,7 +54,7 @@ def gerar_log_de_dataset(limite=None):
                     log[col] = int(round(log[col]))
             yield log
     except Exception as e:
-        print(f"❌ Erro ao carregar logs do CSV: {e.__class__.__name__} - {e}")
+        print(f"Erro ao carregar logs do CSV: {e.__class__.__name__} - {e}")
 
 def gerar_logs_mistos(n_ataques=5, n_normais=20):
     """Gera logs mistos (ataques e tráfego normal) do dataset."""
@@ -65,9 +65,9 @@ def gerar_logs_mistos(n_ataques=5, n_normais=20):
         normais_df = df[df['Attack_Type'] == 'Normal Traffic']
 
         if ataques_df.empty:
-            print("⚠️ Nenhum ataque encontrado no dataset!")
+            print("Nenhum ataque encontrado no dataset!")
         if normais_df.empty:
-            print("⚠️ Nenhum tráfego normal encontrado no dataset!")
+            print("Nenhum tráfego normal encontrado no dataset!")
 
         ataques_amostra = ataques_df.sample(min(n_ataques, len(ataques_df)))
         normais_amostra = normais_df.sample(min(n_normais, len(normais_df)))
@@ -85,7 +85,7 @@ def gerar_logs_mistos(n_ataques=5, n_normais=20):
             yield log
 
     except Exception as e:
-        print(f"❌ Erro ao gerar logs mistos: {e.__class__.__name__} - {e}")
+        print(f"Erro ao gerar logs mistos: {e.__class__.__name__} - {e}")
 
 def gerar_logs_continuos_mistos(n_ataques=2, n_normais=10, intervalo=1.0):
     """Gera logs mistos continuamente com intervalo (ideal para demonstrações)."""

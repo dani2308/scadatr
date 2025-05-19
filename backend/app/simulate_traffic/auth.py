@@ -12,5 +12,5 @@ def obter_token_jwt(email, password):
         response.raise_for_status()
         return response.json().get("access_token")
     except Exception as e:
-        print("❌ Erro ao obter token JWT:", e)
+        print("Erro ao obter token JWT:", e)
         return None

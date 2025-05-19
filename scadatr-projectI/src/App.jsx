@@ -30,7 +30,6 @@ function App() {
   return (
     <NotificationProvider>
       {" "}
-      {/* <-- envolver aqui */}
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />

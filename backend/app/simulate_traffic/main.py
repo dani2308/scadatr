@@ -14,7 +14,7 @@ from backend.app.simulate_traffic.sender import enviar_log, guardar_log_ficheiro
 
 
 def simular_trafego_aleatorio(token: str, intervalo: int):
-    print("🚀 Início da simulação aleatória...")
+    print("Início da simulação aleatória...")
     while True:
         log = gerar_log_simulado()
         if enviar_log(log, token):
@@ -23,7 +23,7 @@ def simular_trafego_aleatorio(token: str, intervalo: int):
 
 
 def simular_trafego_de_dataset(token: str, intervalo: int):
-    print("📂 Início da simulação a partir do dataset...")
+    print("Início da simulação a partir do dataset...")
     for log in gerar_log_de_dataset():
         if enviar_log(log, token):
             guardar_log_ficheiro(log)
@@ -31,7 +31,7 @@ def simular_trafego_de_dataset(token: str, intervalo: int):
 
 
 def simular_trafego_misto(token: str, intervalo: int, n_ataques=5, n_normais=20):
-    print(f"🔀 Início da simulação mista com {n_ataques} ataques e {n_normais} normais...")
+    print(f"Início da simulação mista com {n_ataques} ataques e {n_normais} normais...")
     for log in gerar_logs_mistos(n_ataques=n_ataques, n_normais=n_normais):
         if enviar_log(log, token):
             guardar_log_ficheiro(log)
@@ -39,7 +39,7 @@ def simular_trafego_misto(token: str, intervalo: int, n_ataques=5, n_normais=20)
 
 
 def simular_trafego_demo_continuo(token: str, intervalo: int):
-    print("🧪 Modo DEMO: envio contínuo de logs mistos (loop infinito)")
+    print("Modo DEMO: envio contínuo de logs mistos (loop infinito)")
     while True:
         for log in gerar_logs_mistos(n_ataques=5, n_normais=10):
             if enviar_log(log, token):
@@ -78,7 +78,7 @@ def main():
     print(f"🕒 Início: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     token = obter_token_jwt(EMAIL, PASSWORD)
     if not token:
-        print("⛔ Token inválido. Encerrando.")
+        print("Token inválido. Encerrando.")
         return
 
     match args.modo:

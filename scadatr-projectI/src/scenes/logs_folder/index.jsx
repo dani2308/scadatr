@@ -49,7 +49,7 @@ const LogsPage = () => {
           }
         });
       } catch (error) {
-        console.error("❌ Erro ao buscar logs:", error);
+        console.error("Erro ao encontrar logs:", error);
       }
     };
 
