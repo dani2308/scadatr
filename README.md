@@ -32,7 +32,8 @@ Before training the model, the dataset was preprocessed and refined, including t
 
 ## Tech Stack
 - **Language:** Python 3.13  
-- **Frameworks / Libraries:** Pandas, NumPy, FastAPI, React, JSON Web Tokens (JWT)  
+- **Frameworks / Libraries:** Pandas, NumPy, FastAPI, React, JSON Web Tokens (JWT)
+- **Database:** PostgreSQL  
 - **Tools:** Git  
 - **Environment:** Windows  
 
